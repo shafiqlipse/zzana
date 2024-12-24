@@ -1,0 +1,31 @@
+@import "../../variables.scss";
+.home-wraper {
+  .hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #06367dcb, #283b68b5),
+      url("../../../img/gate.jpg") no-repeat center center/cover;
+    color: #fff;
+    height: 70vh;
+    .hero-image {
+      width: 50%;
+      text-align: center;
+      h6 {
+        padding: 5px;
+        background: rgba(14, 50, 80, 0.29);
+        color: $gold;
+        border-radius: 10px;
+      }
+      h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        span {
+          margin: 40px 0;
+          font-size: 3rem;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

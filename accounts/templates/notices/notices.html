@@ -1,0 +1,101 @@
+{% extends "dashboard/dashboard.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %} | Applications{% endblock %}
+<!---->
+{% block content %}
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-wrapper row">
+      <div class="col-12 col-lg-3 col-md-6">
+        <h4 class="page-title">NOTICEBOARD</h4>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          Add Notice
+        </button>
+      </div>
+      <div class="col-12 col-lg-9 col-md-6">
+        <ol class="breadcrumb float-right">
+          <li><a href="{% url 'dashboard'%}">Dashboard</a></li>
+          <li class="active">/ Notices</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Breadcrumb End -->
+  </div>
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <div class="notices-fluid">
+    <div class="noticelist">
+      {% for notice in notices %}
+      <div class="notice flex">
+        <div class="author flex">
+          {% if notice.author.thumbnail %}
+          <img src="{{notice.author.thumbnail}}" alt="" />
+          {% else %}
+          <img src="{% static 'img/avatar/avatar.jpg'%}" alt="" />
+          {% endif %}
+
+          <span><i class="fa fa-flag"></i></span>
+          <h2>{{notice.author |capfirst}}</h2>
+        </div>
+        <div class="content">
+          <h4>{{notice.title|slice:":55"}}___</h4>
+        </div>
+        <div class="date">
+          <h5>{{notice.created_at}}</h5>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Complaint</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" class="form-control">
+            {% csrf_token %} {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

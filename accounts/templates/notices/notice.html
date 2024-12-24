@@ -1,0 +1,13 @@
+{% extends "dashboard/dashboard.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %} | {{ notice.title }}{% endblock %}
+<!---->
+{% block content %}
+<div class="main-content">
+  <h1>{{ notice.title }}</h1>
+  <p>{{ notice.content }}</p>
+  <p><small>Posted on: {{ notice.created_at }}</small></p>
+</div>
+{% endblock content %}

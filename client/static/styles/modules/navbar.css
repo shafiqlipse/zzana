@@ -1,0 +1,150 @@
+.menubar-wrapper {
+  padding: 10px 5%;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #283b68;
+}
+@media (max-width: 1100px) {
+  .menubar-wrapper {
+    padding: 10px;
+  }
+}
+.menubar-wrapper .containerfluid .brand {
+  width: 250px;
+  text-decoration: none;
+}
+.menubar-wrapper .containerfluid .brand img {
+  width: 60px;
+}
+.menubar-wrapper .containerfluid .brand h3 {
+  font-size: 1.2em;
+  color: white;
+}
+.menubar-wrapper .containerfluid .menubar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 1024px) {
+  .menubar-wrapper .containerfluid .menubar {
+    display: none;
+  }
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .drop {
+  position: relative;
+  padding: 10px;
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .drop .drop-menu {
+  width: 300px;
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: -20px;
+  padding-top: 30px;
+  background-color: #283b68;
+}
+@media (max-width: 1024px) {
+  .menubar-wrapper .containerfluid .menubar .menubar-menu .drop .drop-menu {
+    width: 100%;
+  }
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .drop .drop-menu li {
+  margin-bottom: 20px;
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .drop .drop-menu li .drop-item {
+  width: 100%;
+  padding: 10px;
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .drop .drop-menu li .drop-item:hover {
+  background-color: #fff;
+  color: #283b68;
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .menu-item {
+  margin: 0 10px;
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .menu-item:hover a {
+  color: gold;
+  text-decoration: none;
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .menu-item a {
+  color: white;
+  text-decoration: none;
+}
+.menubar-wrapper .containerfluid .menubar .menubar-menu .menu-item .droplet {
+  display: block;
+}
+.menubar-wrapper .containerfluid .menubar-toggler {
+  display: none;
+}
+@media (max-width: 1025px) {
+  .menubar-wrapper .containerfluid .menubar-toggler {
+    display: block;
+    border: 0;
+    font-size: 2em;
+    padding: 10px;
+  }
+}
+.menubar-wrapper .thuglife {
+  position: absolute;
+  left: 0;
+  top: 70px;
+  background-color: #283b68;
+  width: 300px;
+  padding-top: 20px;
+}
+@media (max-width: 768px) {
+  .menubar-wrapper .thuglife {
+    width: 100%;
+  }
+}
+.menubar-wrapper .thuglife .menubar-menu {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.menubar-wrapper .thuglife .menubar-menu .drop {
+  position: relative;
+  width: 100%;
+}
+.menubar-wrapper .thuglife .menubar-menu .drop .drop-menu {
+  margin-left: -20px;
+  width: 300px;
+  display: none;
+  padding-top: 30px;
+  background-color: #283b68;
+}
+@media (max-width: 768px) {
+  .menubar-wrapper .thuglife .menubar-menu .drop .drop-menu {
+    width: 100%;
+  }
+}
+.menubar-wrapper .thuglife .menubar-menu .drop .drop-menu li {
+  margin-bottom: 20px;
+}
+.menubar-wrapper .thuglife .menubar-menu .drop .drop-menu li .drop-item {
+  width: 100%;
+  padding: 10px;
+}
+.menubar-wrapper .thuglife .menubar-menu .drop .drop-menu li .drop-item:hover {
+  background-color: #fff;
+  color: #283b68;
+}
+.menubar-wrapper .thuglife .menubar-menu .menu-item {
+  margin: 10px 0;
+}
+.menubar-wrapper .thuglife .menubar-menu .menu-item:hover a {
+  color: gold;
+  text-decoration: none;
+}
+.menubar-wrapper .thuglife .menubar-menu .menu-item a {
+  color: white;
+  text-decoration: none;
+}
+.menubar-wrapper .thuglife .menubar-menu .menu-item .droplet {
+  display: block;
+}
+.menubar-wrapper .thuglife .btn-stahiza {
+  margin-bottom: 20px;
+}/*# sourceMappingURL=navbar.css.map */

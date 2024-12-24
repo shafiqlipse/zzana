@@ -1,0 +1,161 @@
+{% extends "pages/Base.html" %}
+<!---->{% load static %}
+<!---->
+{% block title %}| Enroll{% endblock title %}
+<!---->
+{% block content %}
+
+<style>
+  .alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .error-message {
+    background-color: red;
+    color: white;
+  }
+
+  .success-message {
+    background-color: #4caf50;
+    color: white;
+  }
+</style>
+<div class="content-wrapper">
+  <h1>Admission</h1>
+  <p>All fields labeled with <span>*</span> must be filled.</p>
+  <hr />
+  <form
+    action=""
+    method="POST"
+    class="form-ctrl card"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <div class="fields">
+      <div class="left">
+        <h2>Student Info</h2>
+        <p>All fields labeled with <span>*</span> must be filled.</p>
+        <hr />
+        {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="left0">
+          <div class="imgbox">
+            <div class="field">
+              <label>{{form.photo.label}} </label>
+              <div id="photos_preview" class="preview-container"></div>
+            </div>
+            <div class="field">
+              <input type="file" name="photo" accept="image/*" id="id_photo" />
+            </div>
+          </div>
+
+          <div class="lefty">
+            <div class="field-grid grid3a">
+              <div class="field">
+                <label>First Name<span>*</span></label
+                >{{form.fname}} {% if form.fname.errors %}
+                <ul class="errorlist">
+                  {% for error in form.fname.errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </div>
+              <div class="field"><label>Middle Name</label>{{form.mname}}</div>
+              <div class="field">
+                <label>Last Name</label>{{form.lname}} {% if form.fname.errors%}
+
+                <ul class="errorlist">
+                  {% for error in form.fname.errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </div>
+
+              <div class="field">
+                <label>Nationality</label>{{form.nationality}}
+              </div>
+              <div class="field-container" id="index_number_container">
+                <label>Index Number</label>{{form.index_number}}
+              </div>
+              <div class="field-container" id="year_container">
+                <label>Year of sitting</label>{{form.year}}
+              </div>
+
+              <div class="field"><label>Gender</label>{{form.gender}}</div>
+
+              <div class="field"><label>Class</label>{{form.classroom}}</div>
+              <div class="field">
+                <label>Residence</label>{{form.residence}}
+              </div>
+              <div class="field">
+                <label>Date of Birth:</label>
+                {{form.dob}}
+              </div>
+              <div class="field">
+                <label>Previous School</label>
+                {{form.prev_sch}}
+              </div>
+
+              <div class="field-container" id="ple_certificate_container">
+                <label for="id_ple_certificate">PLE Certificate</label>
+                {{ form.ple_certificate }}
+              </div>
+
+              <div class="field-container" id="uce_certificate_container">
+                <label for="id_uce_certificate">UCE Certificate</label>
+                {{ form.uce_certificate }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Parent/ Guardian Info</h2>
+        <p>
+          Ensure information provided below corresponds to that on official
+          documents.
+        </p>
+        <hr />
+        <div class="left1">
+          <div class="lefte">
+            <div class="field-grid grid3a">
+              <div class="field">
+                <label>Parent's First name</label>{{form.guardian_fname}}
+              </div>
+              <div class="field">
+                <label>Parent's Last name</label>{{form.guardian_lname}}
+              </div>
+
+              <div class="field"><label>Parent's NIN</label>{{form.nin}}</div>
+
+              <div class="field">
+                <label>Relationship</label>{{form.relationship}}
+              </div>
+              <div class="field">
+                <label>Parent's Email (optional)</label>{{form.email}}
+              </div>
+              <div class="field">
+                <label>Parent's contact</label>{{form.phone}}
+              </div>
+
+              <div class="field"><label>Address</label>{{form.address}}</div>
+              <div class="field"><label>District</label>{{form.district}}</div>
+              <div class="field"><label>Country</label>{{form.country}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-common">Send Application</button>
+  </form>
+</div>
+{% endblock %}

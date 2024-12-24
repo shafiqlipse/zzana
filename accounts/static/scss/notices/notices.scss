@@ -1,0 +1,21 @@
+.notices-fluid {
+  .noticelist {
+    margin: 10px 0;
+    background-color: #ffffff6c;
+    .notice {
+      padding: 5px;
+      font-size: 0.7rem;
+      gap: 10px;
+      .author {
+        width: 200px;
+        justify-content: flex-start;
+        gap: 10px;
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 100%;
+        }
+      }
+    }
+  }
+}

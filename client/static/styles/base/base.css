@@ -1,0 +1,121 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 500px) {
+  .grid2 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.grid3a {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1000px) {
+  .grid3a {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid3a {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1000px) {
+  .grid4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 400px) {
+  .grid4 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.grid5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1000px) {
+  .grid5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 400px) {
+  .grid5 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+.btn-stahiza {
+  width: 200px;
+  padding: 8px;
+  text-transform: capitalize;
+  color: white;
+  background-color: gold;
+}
+
+.btn-submit {
+  width: 200px;
+  padding: 8px;
+  text-transform: capitalize;
+  color: white;
+  background-color: #283b68;
+  border-radius: 10px;
+}
+.btn-submit:hover {
+  background-color: rgb(251, 251, 251);
+  color: #e30000;
+}
+@media (max-width: 600px) {
+  .btn-submit {
+    width: 100%;
+  }
+}/*# sourceMappingURL=base.css.map */

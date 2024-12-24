@@ -1,0 +1,67 @@
+{% load static %}
+<!---->
+<div class="footer-section">
+  <div class="top-footer grid4">
+    <div class="dert flex">
+      <a href="#" class="footer-site-logo flex">OUR SCHOOL
+      <img src="{% static 'img/fut.png'%}" alt="" /></a>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit officiis
+        corporis optio natus.
+      </p>
+    </div>
+    <div class="dert">
+      <h3>Shop</h3>
+      <ul class="list-unstyled links">
+        <li><a href="#">Sell online</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Examples</a></li>
+        <li><a href="#">Website editors</a></li>
+        <li><a href="#">Online retail</a></li>
+      </ul>
+    </div>
+    <div class="dert">
+      <h3>Press</h3>
+      <ul class="list-unstyled links">
+        <li><a href="#">Events</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Awards</a></li>
+        <li><a href="#">Testimonials</a></li>
+        <li><a href="#">Online retail</a></li>
+      </ul>
+    </div>
+    <div class="dert">
+      <h3>About</h3>
+      <ul class="list-unstyled links">
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Career</a></li>
+        <li><a href="#">Contacts</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr />
+  <div class="bottom-footer flex">
+    <div class="socials flex">
+      <li>
+        <a href=""><i class="fa fa-facebook"></i></a>
+      </li>
+      <li>
+        <i class="fa fa-x-twitter"></i>
+      </li>
+      <li>
+        <a href=""><i class="fa fa-instagram"></i></a>
+      </li>
+      <li>
+        <a href=""><i class="fa fa-youtube"></i></a>
+      </li>
+    </div>
+    <div class="copy">
+      <p>&copy; <span id="year"></span> Stahiza. All rights reserved.</p>
+    </div>
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</div>
