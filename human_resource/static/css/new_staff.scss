@@ -25,7 +25,7 @@
         }
         .left0 {
           display: flex;
-        //   align-items: center;
+
           justify-content: space-between;
           align-items: flex-start;
           @media (max-width: 768px) {
@@ -75,47 +75,15 @@
             margin: 20px;
             @media (max-width: 800px) {
               width: 100%;
+              margin: 0;
             }
-          }
-        }
-        .left1 {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          @media (max-width: 768px) {
-            flex-direction: column;
-          }
-
-          .lefte {
-            width: 100%;
-            .field,
-            .field-container {
-              margin-bottom: 10px;
-
-              input,
-              select {
-                width: 100%;
-                background-color: #fff;
-                // box-shadow: 1px 1px 10px 1px #cecece;
+            .field-grid {
+              @media (max-width: 768px) {
+                grid-template-columns: repeat(2, 1fr);
               }
-              label {
-                margin: 0;
-                font-size: 13px;
-                color: #000000;
+              @media (max-width: 568px) {
+                grid-template-columns: repeat(1, 1fr);
               }
-            }
-          }
-          .imgbox {
-            width: 30%;
-            @media (max-width: 768px) {
-              width: 100%;
-            }
-          }
-          .lefty {
-            width: 70%;
-            margin: 20px;
-            @media (max-width: 800px) {
-              width: 100%;
             }
           }
         }
@@ -132,6 +100,10 @@
       &:hover {
         background-color: rgb(251, 251, 251);
         color: #e30000;
+      }
+
+      @media (max-width: 768px) {
+        width: 100%;
       }
     }
   }

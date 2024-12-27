@@ -1,0 +1,6 @@
+# Ignore the settings file in the stahiza folder
+stahiza/settings.py
+
+# ignore filefolders
+student_photos/
+staff_photos/

@@ -343,7 +343,7 @@ rel="stylesheet"
                 </a>
                 <ul class="dropdown-menu sub-down">
                   <li>
-                    <a href="alert.html">Teachers</a>
+                    <a href="{% url 'employees'%}">Staff</a>
                   </li>
                   <li>
                     <a href="{%url 'add_employee'%}">Add Staff</a>
@@ -395,6 +395,12 @@ rel="stylesheet"
                 <ul class="dropdown-menu sub-down">
                   <li>
                     <a href="accordion.html">All Books</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'categories'%}">Book Categories</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'subjects'%}">Subjects</a>
                   </li>
                   <li>
                     <a href="carousel.html">Add Book</a>
@@ -629,7 +635,20 @@ rel="stylesheet"
       document.getElementById("year").textContent = currentYear;
     </script>
      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{% static 'js/jquery-min.js' %}"></script>
+     <script>
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $("#myaTable").DataTable();
+      });
+    </script>
+
+    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.app.js' %}"></script>

@@ -100,53 +100,17 @@
 @media (max-width: 800px) {
   .container-fluid .form-ctrl .fields .left .left0 .lefty {
     width: 100%;
+    margin: 0;
   }
-}
-.container-fluid .form-ctrl .fields .left .left1 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 @media (max-width: 768px) {
-  .container-fluid .form-ctrl .fields .left .left1 {
-    flex-direction: column;
+  .container-fluid .form-ctrl .fields .left .left0 .lefty .field-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
-.container-fluid .form-ctrl .fields .left .left1 .lefte {
-  width: 100%;
-}
-.container-fluid .form-ctrl .fields .left .left1 .lefte .field,
-.container-fluid .form-ctrl .fields .left .left1 .lefte .field-container {
-  margin-bottom: 10px;
-}
-.container-fluid .form-ctrl .fields .left .left1 .lefte .field input,
-.container-fluid .form-ctrl .fields .left .left1 .lefte .field select,
-.container-fluid .form-ctrl .fields .left .left1 .lefte .field-container input,
-.container-fluid .form-ctrl .fields .left .left1 .lefte .field-container select {
-  width: 100%;
-  background-color: #fff;
-}
-.container-fluid .form-ctrl .fields .left .left1 .lefte .field label,
-.container-fluid .form-ctrl .fields .left .left1 .lefte .field-container label {
-  margin: 0;
-  font-size: 13px;
-  color: #000000;
-}
-.container-fluid .form-ctrl .fields .left .left1 .imgbox {
-  width: 30%;
-}
-@media (max-width: 768px) {
-  .container-fluid .form-ctrl .fields .left .left1 .imgbox {
-    width: 100%;
-  }
-}
-.container-fluid .form-ctrl .fields .left .left1 .lefty {
-  width: 70%;
-  margin: 20px;
-}
-@media (max-width: 800px) {
-  .container-fluid .form-ctrl .fields .left .left1 .lefty {
-    width: 100%;
+@media (max-width: 568px) {
+  .container-fluid .form-ctrl .fields .left .left0 .lefty .field-grid {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 .container-fluid .form-ctrl .btn-submit {
@@ -161,6 +125,11 @@
 .container-fluid .form-ctrl .btn-submit:hover {
   background-color: rgb(251, 251, 251);
   color: #e30000;
+}
+@media (max-width: 768px) {
+  .container-fluid .form-ctrl .btn-submit {
+    width: 100%;
+  }
 }
 
 .field-container {

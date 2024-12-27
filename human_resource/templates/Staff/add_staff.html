@@ -24,11 +24,16 @@
   </div>
 
   <div class="container-fluid">
-    <form action="" method="post" class="form-ctrl">
+    <form
+      action=""
+      method="post"
+      class="form-ctrl"
+      enctype="multipart/form-data"
+    >
       {% csrf_token %}
       <div class="fields">
         <div class="left">
-          <h2>Athlete Info</h2>
+          <h2>Employee Info</h2>
           <p>All fields labeled with <span>*</span> must be filled.</p>
           <hr />
           {% if messages %}
@@ -65,9 +70,7 @@
                   <label>Middle Name</label>{{form.mname}}
                 </div>
                 <div class="field"><label>Last Name</label>{{form.lname}}</div>
-              </div>
 
-              <div class="field-grid grid3">
                 <div class="field">
                   <label>Department</label>{{form.department}}
                 </div>

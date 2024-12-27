@@ -1,5 +1,11 @@
 from django.shortcuts import render
-
+from human_resource.models import *
 # Create your views here.
+from django.contrib.auth.decorators import login_required
+
+
+@login_required(login_url="login")
 def Dashboard(request):
-    return render(request, 'dashboard/overview.html')
+    employees = Employee.objects.all().count
+    context = {"employees":employees}
+    return render(request, 'dashboard/overview.html', context)

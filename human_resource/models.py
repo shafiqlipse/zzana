@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
-from accounts.models import *
+from accounts.models import User
 # Create your models here.
 class Department(models.Model):
     name = models.CharField(max_length=144)

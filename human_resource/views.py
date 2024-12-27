@@ -1,10 +1,16 @@
-from django.shortcuts import render, redirect,get_object_or_404
+import base64
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 from django.db import IntegrityError
 from django.core.files.base import ContentFile
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
+@login_required(login_url="login")
 def Departments(request):
     departments = Department.objects.all()
     form_errors = None  # To capture errors if the form is invalid
@@ -25,6 +31,8 @@ def Departments(request):
     }
     return render(request, "departments/departments.html", context)
 
+
+@login_required(login_url="login")
 def department_delete(request, id):
     stud = Department.objects.get(id=id)
     if request.method == "POST":
@@ -35,6 +43,8 @@ def department_delete(request, id):
 
 # Create your views here.
 
+
+@login_required(login_url="login")
 def Designations(request):
     designations = Designation.objects.all()
     form_errors = None  # To capture errors if the form is invalid
@@ -55,6 +65,8 @@ def Designations(request):
     }
     return render(request, "designations/designations.html", context)
 
+
+@login_required(login_url="login")
 def designation_delete(request, id):
     stud = Designation.objects.get(id=id)
     if request.method == "POST":
@@ -65,6 +77,8 @@ def designation_delete(request, id):
 
 # Create your views here.
 
+
+@login_required(login_url="login")
 def Roles(request):
     roles = Role.objects.all()
     form_errors = None  # To capture errors if the form is invalid
@@ -85,6 +99,8 @@ def Roles(request):
     }
     return render(request, "roles/roles.html", context)
 
+
+@login_required(login_url="login")
 def role_delete(request, id):
     stud = Role.objects.get(id=id)
     if request.method == "POST":
@@ -92,14 +108,10 @@ def role_delete(request, id):
         return redirect("roles")
 
     return render(request, "roles/delete_role.html", {"obj": stud})
-import base64
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.core.files.base import ContentFile
-import base64
 
-def employees(request):  
+
+@login_required(login_url="login")
+def employees(request):
     form_errors = None  # To capture errors if the form is invalid
 
     if request.method == "POST":
@@ -108,21 +120,22 @@ def employees(request):
             employee = form.save(commit=False)  # Create an instance to modify
             cropped_data = request.POST.get("photo_cropped")
             employee.added_by = request.user  # Set added_by to the current user
-            
+
             if cropped_data:
                 try:
                     # Extract and decode the base64 image data
                     format, imgstr = cropped_data.split(";base64,")
                     ext = format.split("/")[-1]
-                    data = ContentFile(base64.b64decode(imgstr), name=f"photo.{ext}")
+                    data = ContentFile(base64.b64decode(
+                        imgstr), name=f"photo.{ext}")
                     employee.photo = data  # Assign cropped image
                 except (ValueError, TypeError) as e:
                     messages.error(request, "Invalid image data.")
                     return render(request, "enrollments/enrollment_new.html", {"form": form})
-            
+
             employee.save()  # Save the employee object
             messages.success(request, "Employee added successfully!")
-            return redirect("success_url")  # Replace with actual success URL
+            return redirect("employees")  # Replace with actual success URL
         else:
             form_errors = form.errors  # Capture form errors
     else:
@@ -134,13 +147,16 @@ def employees(request):
     }
     return render(request, "Staff/add_staff.html", context)
 
+
 def staff_details(request):
-    employee = get_object_or_404(Employee,id=id)
+    employee = get_object_or_404(Employee, id=id)
     context = {
- "employee":employee
+        "employee": employee
     }
     return render(request, "Staff/staff.html", context)
 
+
+@login_required(login_url="login")
 def staff_delete(request, id):
     stud = Role.objects.get(id=id)
     if request.method == "POST":
@@ -148,3 +164,10 @@ def staff_delete(request, id):
         return redirect("employees")
 
     return render(request, "Staff/delete_staff.html", {"obj": stud})
+
+
+@login_required(login_url="login")
+def all_employees(request):
+    allemployees = Employee.objects.all()
+    context = {"allemployees": allemployees}
+    return render(request, 'Staff/all_employees.html', context)
