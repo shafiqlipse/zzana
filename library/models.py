@@ -30,6 +30,7 @@ class Paper(models.Model):
         Subject, verbose_name="subject", on_delete=models.CASCADE)
     created = models.DateField(auto_now_add=True)
     code = models.CharField(max_length=144, null=True, blank=True)
+    paper_number = models.IntegerField( null=True, blank=True)
 
     def __str__(self):
         return self.name

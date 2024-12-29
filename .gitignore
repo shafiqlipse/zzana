@@ -4,3 +4,21 @@ stahiza/settings.py
 # ignore filefolders
 student_photos/
 staff_photos/
+
+# Django migrations
+accounts/migrations/*
+!accounts/migrations/__init__.py
+classes/migrations/*
+!classes/migrations/__init__.py
+client/migrations/*
+!client/migrations/__init__.py
+dashboard/migrations/*
+!dashboard/migrations/__init__.py
+students/migrations/*
+!students/migrations/__init__.py
+library/migrations/*
+!library/migrations/__init__.py
+human_resource/migrations/*
+!human_resource/migrations/__init__.py
+transfers/migrations/*
+!transfers/migrations/__init__.py

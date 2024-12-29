@@ -20,10 +20,10 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>host</th>
-            <th>start date</th>
-            <th>end date</th>
-
+            <th>Subject</th>
+            <th>Paper</th>
+            <th>Code</th>
+         
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -32,20 +32,19 @@
           {% for paper in papers%}
           <tr>
             <td>
-              <a href="{% url 'champDetail' paper.id%}"
-                >{{paper.subject}} {{paper.name}}</a
-              >
+             {{paper.name}}
             </td>
-            <td>{{paper.host}}</td>
+            <td> {{paper.subject}}</td>
+            <td>Paper {{paper.paper_number}}</td>
 
-            <td>{{paper.start_date}}</td>
-            <td>{{paper.end_date}}</td>
+            <td>{{paper.code}}</td>
+            
 
             <td>
-              <a href="" class="del"><i class="fa fa-pencil"></i></a>
+              <a href="" class="del"><i class="fa fa-pencil"></i>Edit</a>
             </td>
             <td>
-              <a href="" class="del"><i class="fa fa-trash"></i></a>
+              <a href="" class="del"><i class="fa fa-trash"></i>Delete</a>
             </td>
           </tr>
 
@@ -65,7 +64,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add Paper</h5>
           <button
             type="button"
             class="close"

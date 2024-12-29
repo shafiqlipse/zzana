@@ -8,6 +8,40 @@
   font-size: 1rem;
 }
 
+.front-wraper .top-menu {
+  padding: 10px 5%;
+}
+@media (max-width: 768px) {
+  .front-wraper .top-menu {
+    padding: 10px;
+  }
+  .front-wraper .top-menu .left {
+    display: none;
+  }
+  .front-wraper .top-menu .right {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+  .front-wraper .top-menu .right li a {
+    margin: 0;
+  }
+}
+.front-wraper .top-menu .left .contacts li a,
+.front-wraper .top-menu .left .toplex li a,
+.front-wraper .top-menu .right .contacts li a,
+.front-wraper .top-menu .right .toplex li a {
+  margin: 0 10px;
+  color: #283b68;
+  text-decoration: none;
+}
+.front-wraper .top-menu .left .contacts li a:hover,
+.front-wraper .top-menu .left .toplex li a:hover,
+.front-wraper .top-menu .right .contacts li a:hover,
+.front-wraper .top-menu .right .toplex li a:hover {
+  color: gold;
+}
+
 .flex {
   display: flex;
   align-items: center;

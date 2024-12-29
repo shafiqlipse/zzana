@@ -13,7 +13,7 @@ SECRET_KEY = "django-insecure-wvurwk%_%-2vgy!yc!qn*pqf=syl-e!klh7jvl4@%j#(=u=ns9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["www.stahiza.ac.ug", "stahiza.ac.ug"]
 
 
 # Application definition
@@ -70,9 +70,9 @@ WSGI_APPLICATION = "stahiza.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "stahiza",
-        "USER": "root",
-        "PASSWORD": "Remmystar@48.com",
+        "NAME": "stahiza_stahiza",
+        "USER": "stahiza_zzana",
+        "PASSWORD": "Stahiza025",
         "HOST": "localhost",  # or the hostname where your MySQL server is running
         "PORT": "3306",  # or the port on which your MySQL server is listening
     }
@@ -114,7 +114,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+
+
+import os
+
 STATIC_URL = "/static/"
+STATIC_ROOT = "static/"
+MEDIA_URL = "uploads/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+STATICFILES_DIRS = [
+os.path.join(BASE_DIR, "dashboard", "static"),
+
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

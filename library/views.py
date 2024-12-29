@@ -81,10 +81,11 @@ def subject_details(request, id):
             paper = form.save(commit=False)
             paper.subject = subject
             paper.save()
+            return redirect('subject', id=subject.id)  # Redirect after save
         else:
             form_errors = form.errors  # Capture form errors
     else:
-        form = BookCategoryForm()
+        form = PaperForm()
     context = {
         "subject": subject,
         "form": form,
