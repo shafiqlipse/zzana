@@ -23,7 +23,7 @@
 />    
 <link
 rel="shortcut icon"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 />
 <link
 rel="stylesheet"
@@ -45,6 +45,7 @@ rel="stylesheet"
     <link rel="stylesheet" type="text/css" href="{% static 'styles/base/base.css'%}">
     <!-- Responsive Style -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/staff_detail.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/applicants/apps.css'%}">
     
   </head>
@@ -320,10 +321,10 @@ rel="stylesheet"
                   </a>
                 <ul class="dropdown-menu sub-down">
                   <li>
-                    <a href="email.html">All Students</a>
+                    <a href="{%url 'students'%}">All Students</a>
                   </li>
                   <li><span class="badge badge-primary badge-pro float-right">New</span>
-                    <a href="">Add Student</a>
+                    <a href="{%url 'addstudent'%}">Add Student</a>
                   </li>
                   <li><span class="badge badge-primary badge-pro float-right">New</span>
                     <a href="{%url 'enrollments'%}">Applications</a>
@@ -347,6 +348,12 @@ rel="stylesheet"
                   </li>
                   <li>
                     <a href="{%url 'add_employee'%}">Add Staff</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'teachers'%}">Teachers</a>
+                  </li>
+                  <li>
+                    <a href="{%url 'add_teacher'%}">Add Teacher</a>
                   </li>
                   <li>
                     <a href="buttons.html">Non teaching staff</a>
@@ -400,7 +407,7 @@ rel="stylesheet"
                     <a href="{% url 'categories'%}">Book Categories</a>
                   </li>
                   <li>
-                    <a href="{% url 'subjects'%}">Subjects</a>
+                    <a href="{% url 'genres'%}">Genres</a>
                   </li>
                   <li>
                     <a href="carousel.html">Add Book</a>
@@ -444,16 +451,10 @@ rel="stylesheet"
                 </a>
                 <ul class="dropdown-menu sub-down">
                   <li>
-                    <a href="line-icons.html">All classes</a>
+                    <a href="{% url 'classes'%}">Classes</a>
                   </li>
                   <li>
-                    <a href=#"material-icons.html">Add class</a>
-                  </li>
-                  <li>
-                    <a href="fontawesome-icons.html">Streams</a>
-                  </li>
-                  <li>
-                    <a href=#"material-icons.html">Add Stream</a>
+                    <a href="{% url 'subjects'%}">Subjects</a>
                   </li>
                 </ul>
               </li>
@@ -469,10 +470,10 @@ rel="stylesheet"
                 </a>
                 <ul class="dropdown-menu sub-down">
                   <li>
-                    <a href="form-elements.html">Time tables</a>
+                    <a href="{% url 'timetable'%}">Time tables</a>
                   </li>
                   <li>
-                    <a href="form-elements.html">Add Schedule</a>
+                    <a href="{% url 'create_timetable'%}">Add Schedule</a>
                   </li>
                   <li>
                     <a href="form-elements.html">Attendance</a>
@@ -624,9 +625,12 @@ rel="stylesheet"
       </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <script src="{% static 'js/opper.js' %}"></script>
+    <script src="{% static 'js/timetable.js' %}"></script>
+    <script src="{% static 'js/chat.js' %}"></script>
     <script>
       // Get the current year
       const currentYear = new Date().getFullYear();

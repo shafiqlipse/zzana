@@ -1,0 +1,55 @@
+{% extends "dashboard/dashboard.html" %} {%load static%}
+<!---->
+{% block title %} {{genre}}{% endblock %}
+<!---->
+
+{%block content%}
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="champ">
+      <h3>{{genre}}</h3>
+    </div>
+    <div class="top flex">
+      <h1>Books</h1>
+    </div>
+
+    <div class="lo">
+      <div class="official-list">
+        <table id="myTable" class="display">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Genre</th>
+              <th>Paper</th>
+              <th>Code</th>
+
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for paper in papers%}
+            <tr>
+              <td>{{paper.name}}</td>
+              <td>{{paper.genre}}</td>
+              <td>Paper {{paper.paper_number}}</td>
+
+              <td>{{paper.code}}</td>
+
+              <td>
+                <a href="" class="del"><i class="fa fa-pencil"></i>Edit</a>
+              </td>
+              <td>
+                <a href="" class="del"><i class="fa fa-trash"></i>Delete</a>
+              </td>
+            </tr>
+
+            {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

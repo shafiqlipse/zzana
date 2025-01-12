@@ -1,0 +1,177 @@
+{% extends "dashboard/dashboard.html" %}
+<!---->{% load static %}
+<!---->
+{% block title %}| Add Student{% endblock title %}
+<!---->
+{% block content %}
+
+<style>
+  .alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .error-message {
+    background-color: red;
+    color: white;
+  }
+
+  .success-message {
+    background-color: #4caf50;
+    color: white;
+  }
+</style>
+
+<!-- Content Wrapper START -->
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-wrapper row">
+      <div class="col-12 col-lg-3 col-md-6">
+        <h4 class="page-title">Students</h4>
+      </div>
+      <div class="col-12 col-lg-9 col-md-6">
+        <ol class="breadcrumb float-right">
+          <li><a href="{%url 'dashboard'%}">Dashboard</a></li>
+          <li class="active">/ Students</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Breadcrumb End -->
+  </div>
+
+  <div class="container-fluid">
+    <form
+      action=""
+      method="post"
+      class="form-ctrl"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <div class="fields">
+        <div class="left">
+          <h2>Student Info</h2>
+          <p>All fields labeled with <span>*</span> must be filled.</p>
+          <hr />
+          {{form_errors}}
+          <div class="left0">
+            <div class="imgbox">
+              <div class="field">
+                <label>{{form.photo.label}} </label>
+                <div id="photos_preview" class="preview-container"></div>
+              </div>
+              <div class="field">
+                <input
+                  type="file"
+                  name="photo"
+                  accept="image/*"
+                  id="id_photo"
+                />
+              </div>
+            </div>
+
+            <div class="lefty">
+              <div class="field-grid grid3">
+                <div class="field"><label>First Name</label>{{form.fname}}</div>
+                <div class="field">
+                  <label>Middle Name</label>{{form.mname}}
+                </div>
+                <div class="field"><label>Last Name</label>{{form.lname}}</div>
+
+                <div class="field"><label>Class</label>{{form.classroom}}</div>
+                <div class="field-container" id="lin_container">
+                  <label>Stream</label>{{form.stream}}
+                </div>
+                <div class="field-container" id="refugee_status_container">
+                  <label for="id_refugee">Index Number</label>
+                  {{ form.index_number }}
+                </div>
+                <div class="field-container" id="refugee_status_container">
+                  <label for="id_refugee">LINr</label>
+                  {{ form.lin }}
+                </div>
+                <div class="field"><label>Gender</label>{{form.gender}}</div>
+
+                <div class="field">
+                  <label for="dob">Date of Birth:</label>
+                  {{form.dob}}
+                </div>
+
+                <div class="field-container" id="ple_certificate_container">
+                  <label for="id_ple_certificate">Nationality</label>
+                  {{ form.nationality }}
+                </div>
+
+                <div class="field-container" id="student_pass_container">
+                  <label for="id_student_pass">Residence</label>
+                  {{ form.residence }}
+                </div>
+
+                <div class="field-container" id="student_pass_container">
+                  <label for="id_student_pass">PLE Certificate</label>
+                  {{ form.ple_certificate }}
+                </div>
+
+                <div class="field-container" id="student_pass_container">
+                  <label for="id_student_pass">UCE Certificate</label>
+                  {{ form.uce_certificate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="left">
+          <h2>Guardian Info</h2>
+          <p>All fields labeled with <span>*</span> must be filled.</p>
+          <hr />
+          <div class="left0">
+            <div class="lefty">
+              <div class="field-grid grid3">
+                <div class="field">
+                  <label>First Name</label>{{form.guardian_fname}}
+                </div>
+                <div class="field">
+                  <label>Middle Name</label>{{form.guardian_lname}}
+                </div>
+
+                <div class="field-container" id="index_number_container">
+                  <label>Contact</label>{{form.phone}}
+                </div>
+                <div class="field-container" id="sponsorship_container">
+                  <label>Email</label>{{form.email}}
+                </div>
+                <div class="field-container" id="refugee_status_container">
+                  <label>National ID Number</label>
+                  {{ form.nin }}
+                </div>
+                <div class="field-container" id="refugee_status_container">
+                  <label>Relationship</label>
+                  {{ form.relationship }}
+                </div>
+
+                <div class="field-container" id="student_pass_container">
+                  <label>Address</label>
+                  {{ form.address }}
+                </div>
+
+                <div class="field-container" id="refugee_card_container">
+                  <label>District</label>
+                  {{ form.district }}
+                </div>
+                <div class="field-container" id="uneb_eq_results_container">
+                  <label>Country</label>
+                  {{ form.country }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-submit">Save Student</button>
+    </form>
+  </div>
+</div>
+<!-- Content Wrapper END -->
+{% endblock %}

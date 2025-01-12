@@ -1,17 +1,17 @@
 {% extends "dashboard/dashboard.html" %} {%load static%}
 <!---->
-{% block title %} {{subject}}{% endblock %}
+{% block title %} {{class}}{% endblock %}
 <!---->
 
 {%block content%}
 <div class="main-content">
     <div class="container-fluid">
   <div class="champ">
-    <h3>{{subject}}</h3>
+    <h3>{{class}}</h3>
   </div>
   <div class="top flex">
-    <h1>Papers</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add paper</a>
+    <h1>Streams</h1>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add stream</a>
   </div>
 
   <div class="lo">
@@ -20,8 +20,8 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Subject</th>
-            <th>Paper</th>
+            <th>Genre</th>
+            <th>Stream</th>
             <th>Code</th>
          
             <th>Edit</th>
@@ -29,15 +29,15 @@
           </tr>
         </thead>
         <tbody>
-          {% for paper in papers%}
+          {% for stream in streams%}
           <tr>
             <td>
-             {{paper.name}}
+             {{stream.name}}
             </td>
-            <td> {{paper.subject}}</td>
-            <td>Paper {{paper.paper_number}}</td>
+            <td> {{stream.class}}</td>
+            <td>Stream {{stream.stream_number}}</td>
 
-            <td>{{paper.code}}</td>
+            <td>{{stream.code}}</td>
             
 
             <td>
@@ -64,7 +64,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Paper</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add Stream</h5>
           <button
             type="button"
             class="close"

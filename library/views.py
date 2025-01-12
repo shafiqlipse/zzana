@@ -40,56 +40,44 @@ def bcategory_delete(request, id):
 
 
 @login_required(login_url="login")
-def Subjects(request):
-    subjects = Subject.objects.all()
+def Genres(request):
+    genres = Genre.objects.all()
     form_errors = None  # To capture errors if the form is invalid
 
     if request.method == "POST":
-        form = SubjectForm(request.POST, request.FILES)
+        form = GenreForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
         else:
             form_errors = form.errors  # Capture form errors
     else:
-        form = SubjectForm()
+        form = GenreForm()
 
     context = {
         "form": form,
-        "subjects": subjects,
+        "genres": genres,
         "form_errors": form_errors,
     }
-    return render(request, "books/subjects.html", context)
+    return render(request, "books/genres.html", context)
 
 
 @login_required(login_url="login")
-def subject_delete(request, id):
-    stud = Subject.objects.get(id=id)
+def genre_delete(request, id):
+    stud = Genre.objects.get(id=id)
     if request.method == "POST":
         stud.delete()
-        return redirect("subjects")
+        return redirect("genres")
 
-    return render(request, "books/delete_subject.html", {"obj": stud})
+    return render(request, "books/delete_genre.html", {"obj": stud})
 
 # Create your views here.
 
 
-def subject_details(request, id):
-    subject = get_object_or_404(Subject, id=id)
-    if request.method == "POST":
-        form = PaperForm(request.POST, request.FILES)
-        if form.is_valid():
-            paper = form.save(commit=False)
-            paper.subject = subject
-            paper.save()
-            return redirect('subject', id=subject.id)  # Redirect after save
-        else:
-            form_errors = form.errors  # Capture form errors
-    else:
-        form = PaperForm()
+def genre_details(request, id):
+    genre = get_object_or_404(Genre, id=id)
+    
     context = {
-        "subject": subject,
-        "form": form,
-        "papers": subject.paper_set.all(),
-        # "form_errors": form_errors,
+        "genre": genre,
+
     }
-    return render(request, "books/subject.html", context)
+    return render(request, "books/genre.html", context)

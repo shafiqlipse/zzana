@@ -16,9 +16,9 @@ class BookCategoryForm(forms.ModelForm):
         }
 
 
-class SubjectForm(forms.ModelForm):
+class GenreForm(forms.ModelForm):
     class Meta:
-        model = Subject
+        model = Genre
         fields = [
             "name",
             "code",
@@ -28,20 +28,4 @@ class SubjectForm(forms.ModelForm):
             "name": forms.TextInput(attrs={"class": "form-control"}),
             "code": forms.TextInput(attrs={"class": "form-control"}),
 
-        }
-
-
-class PaperForm(forms.ModelForm):
-    class Meta:
-        model = Paper
-        fields = [
-            "name",
-            "code",
-            "paper_number",
-
-        ]
-        widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-            "code": forms.TextInput(attrs={"class": "form-control"}),
-            "paper_number": forms.TextInput(attrs={"class": "form-control"}),
         }

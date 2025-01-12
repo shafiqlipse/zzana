@@ -1,3 +1,4 @@
+from django.utils.timezone import now
 from django.shortcuts import render
 
 # Create your views here.
@@ -16,6 +17,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import IntegrityError
+
+
 @login_required
 def edit_user(request, id=None):
     if id:
@@ -35,7 +38,6 @@ def edit_user(request, id=None):
         form = UserEditForm(instance=user)
 
     return render(request, "accounts/edit_user.html", {"form": form, "id": user.id})
-
 
 
 # Create your views here.
@@ -59,7 +61,8 @@ def user_login(request):
                     "dashboard"
                 )  # Adjust the URL name for your dashboard view
         else:
-            messages.error(request, "Error in login. Please check your credentials.")
+            messages.error(
+                request, "Error in login. Please check your credentials.")
     else:
         form = AuthenticationForm()
     return render(request, "auth/login.html", {"form": form})
@@ -79,7 +82,8 @@ def change_password(request):
             user = form.save()
             # Update the session to maintain the user's login status
             update_session_auth_hash(request, user)
-            messages.success(request, "Your password was successfully updated!")
+            messages.success(
+                request, "Your password was successfully updated!")
             return redirect("success")
         else:
             messages.error(request, "Please correct the error below.")
@@ -95,8 +99,6 @@ def Confirm(request):
 
 def custom_404(request, exception):
     return render(request, "auth/custom404.html", {}, status=404)
-
-
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
@@ -116,21 +118,22 @@ def success(request):
     return render(request, "accounts/success.html")
 
 
-#+++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
-#-------------------------------------------Visitors views------------------------------------------------
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+# -------------------------------------------Visitors views------------------------------------------------
 
-#+++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
 def Notices(request):
     notices = Notice.objects.all()
     if request.user.is_authenticated:
         # Annotate notices with read status for the current user
         notices = notices.annotate(
             is_read=models.Exists(
-                NoticeReadStatus.objects.filter(user=request.user, notice=models.OuterRef('id'), is_read=True)
+                NoticeReadStatus.objects.filter(
+                    user=request.user, notice=models.OuterRef('id'), is_read=True)
             )
         )
     form = NoticesForm(request.POST or None, request.FILES or None)
-    
+
     if request.method == "POST" and form.is_valid():
         try:
             new_notice = form.save(commit=False)
@@ -141,18 +144,22 @@ def Notices(request):
             messages.success(request, "Notice added successfully!")
             return redirect("notices")
         except IntegrityError:
-            messages.error(request, "There was an error saving the enrollment.")
-    context={"form": form,"notices":notices}
+            messages.error(
+                request, "There was an error saving the enrollment.")
+    context = {"form": form, "notices": notices}
     return render(request, "notices/notices.html", context)
 
-#+++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
-from django.utils.timezone import now
+
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+
+
 def Notice_detail(request, id):
     notice = get_object_or_404(Notice, id=id)
 
     # Update or create read status for the current user
     if request.user.is_authenticated:
-        read_status, created = NoticeReadStatus.objects.get_or_create(user=request.user, notice=notice)
+        read_status, created = NoticeReadStatus.objects.get_or_create(
+            user=request.user, notice=notice)
         if not read_status.is_read:
             read_status.is_read = True
             read_status.read_at = now()
@@ -160,15 +167,14 @@ def Notice_detail(request, id):
     return render(request, 'notices/notice.html', {'notice': notice})
 
 
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+# -------------------------------------------Visitors views------------------------------------------------
 
-#+++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
-#-------------------------------------------Visitors views------------------------------------------------
-
-#+++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
 def Visitors(request):
     visitors = Visitor.objects.all()
     form = VisitorsForm(request.POST or None, request.FILES or None)
-    
+
     if request.method == "POST" and form.is_valid():
         try:
             new_visitor = form.save(commit=False)
@@ -179,24 +185,19 @@ def Visitors(request):
             messages.success(request, "visitor added successfully!")
             return redirect("visitors")
         except IntegrityError:
-            messages.error(request, "There was an error saving the enrollment.")
-    context={"form": form,"visitors":visitors}
+            messages.error(
+                request, "There was an error saving the enrollment.")
+    context = {"form": form, "visitors": visitors}
     return render(request, "visitors/visitors.html", context)
 
 
-
-
-
-
-
-
-#+++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
-#-------------------------------------------Complaints views------------------------------------------------
-#+++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+# -------------------------------------------Complaints views------------------------------------------------
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
 def Complaints(request):
     complaints = Complaint.objects.all()
     form = ComplaintsForm(request.POST or None, request.FILES or None)
-    
+
     if request.method == "POST" and form.is_valid():
         try:
             new_complaint = form.save(commit=False)
@@ -207,6 +208,16 @@ def Complaints(request):
             messages.success(request, "Complained added successfully!")
             return redirect("complaints")
         except IntegrityError:
-            messages.error(request, "There was an error saving the enrollment.")
-    context={"form": form,"complaints":complaints}
+            messages.error(
+                request, "There was an error saving the enrollment.")
+    context = {"form": form, "complaints": complaints}
     return render(request, "complaints/complaints.html", context)
+
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+# -------------------------------------------Chat views------------------------------------------------
+# +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
+
+def chat_room(request, room_name):
+    return render(request, 'accounts/chat.html', {
+        'room_name': room_name
+    })

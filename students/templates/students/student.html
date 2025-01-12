@@ -1,0 +1,208 @@
+{% extends "dashboard/dashboard.html" %}
+
+<!--static-->
+{% block title %} | {{student.fname}} {{student.lname}}{% endblock %}
+<!--static-->
+{% load static %}
+<!--khfufufu-->
+{% block content %}
+<div class="main-content">
+  <div class="student flex">
+    <div class="img-ath">
+      {% if student.photo %}
+      <img src="{{student.photo.url}}" alt="" />
+      {% else %}
+      <img src="{% static 'images/profile.png'%}" alt="" />{% endif %}
+    </div>
+    <div class="line-ath">
+      <h1>{{student.fname}} {{student.lname}}</h1>
+
+      <span>{{student.gender}}</span>
+
+      <hr />
+      <div class="small-details grid3">
+        <span>
+          Index Number:
+          <h3>{{student.index_number}}</h3></span
+        >
+        <span
+          >Nationality:
+          <h3>{{student.nationality}}</h3></span
+        >
+        <span
+          >Date of Birth:
+          <h3>{{student.dob}}</h3></span
+        >
+        <span
+          >Class:
+          <h3>{{student.classroom}}</h3></span
+        >
+        <span
+          >Previous School:
+          <h3>{{student.prev_sch}}</h3></span
+        >
+        <span
+          >Registration date:
+          <h3>{{student.created}}</h3></span
+        >
+        <span
+          >Status:
+          <h3>{{student.status}}</h3></span
+        >
+        {% if user.is_staff %}
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          Activate Student
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="downgrade grid2">
+    <div class="studentsa">
+      <h3>Guardian Infor</h3>
+      <hr />
+      <div class="student-details card">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Names</td>
+              <td>{{student.guardian_fname}} {{student.guardian_lname}}</td>
+            </tr>
+            <tr>
+              <td>NIN</td>
+              <td>{{student.nin}}</td>
+            </tr>
+            <tr>
+              <td>Contact</td>
+              <td>{{student.phone}}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{{student.address}}</td>
+            </tr>
+            <tr>
+              <td>District</td>
+              <td>{{student.district}}</td>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td>{{student.country}}</td>
+            </tr>
+            <tr>
+              <td>Relationship</td>
+
+              <td>{{student.relationship}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="studenta">
+      <h3>Documents</h3>
+      <hr />
+      <div class="student-details card">
+        <li>
+          {% if student.ple_certificate %}
+          <i class="fa fa-file"></i>
+          <a href="{{ student.ple_certificate.url }}" target="_blank"
+            >PLE Certificate</a
+          >
+          {% endif %}
+        </li>
+        <li>
+          {% if student.uce_certificate %}
+          <i class="fa fa-file"></i>
+          <a href="{{ student.uce_certificate.url }}" target="_blank"
+            >UCE Certificate</a
+          >
+          {% endif %}
+        </li>
+        <li>
+          {% if student.student_pass %}
+          <i class="fa fa-file"></i>
+          <a href="{{ student.student_pass.url }}" target="_blank"
+            >Student Pass</a
+          >
+          {% endif %}
+        </li>
+        <li>
+          {% if student.refugee_card %}
+          <i class="fa fa-file"></i>
+          <a href="{{ student.refugee_card.url }}" target="_blank"
+            >Refugee Card</a
+          >
+          {% endif %}
+        </li>
+        <li>
+          {% if student.uneb_eq_results %}
+          <i class="fa fa-file"></i>
+          <a href="{{ student.uneb_eq_results.url }}" target="_blank"
+            >UNEB Equated Results</a
+          >
+          {% endif %}
+        </li>
+        {% if student.qr_code %}
+        <img src="{{student.qr_code.url}}" alt="" />{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="related_students">
+    <h1>Related students</h1>
+    <p>Athletes from the same school</p>
+    <div class="students grid5">
+      {% for student in relatedstudents %}
+      <a class="student" href="{% url 'student' student.id%}">
+        <img src="{{student.photo.url}}" alt="" />
+        <div class="atth">
+          <p>{{student.fname}} {{student.lname}}</p>
+          <p>{{student.student_id}}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Championship</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %} {{ dform.as_p }}
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

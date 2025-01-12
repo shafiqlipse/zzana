@@ -1,0 +1,133 @@
+{% extends "dashboard/dashboard.html" %}
+
+<!--static-->
+{% block title %} | {{employee.fname}} {{employee.lname}}{% endblock %}
+<!--static-->
+{% load static %}
+<!--khfufufu-->
+{% block content %}
+<div class="main-content">
+  <div class="employee flex">
+    <div class="img-ath">
+      {% if employee.photo %}
+      <img src="{{employee.photo.url}}" alt="" />
+      {% else %}
+      <img src="{% static 'images/profile.png'%}" alt="" />{% endif %}
+    </div>
+    <div class="line-ath">
+      <h1>{{employee.fname}} {{employee.lname}}</h1>
+
+      <span>{{employee.gender}}</span> |
+      <span>{{employee.marital}}</span>
+
+      <hr />
+      <div class="small-details grid3">
+        <span>
+          ID Number:
+          <h3>{{employee.nin}}</h3></span
+        >
+        <span
+          >Department:
+          <h3>{{employee.department}}</h3></span
+        >
+        <span
+          >Role:
+          <h3>{{employee.role}}</h3></span
+        >
+        <span
+          >Date of Birth:
+          <h3>{{employee.date_of_brth}}</h3></span
+        >
+        <span
+          >Class:
+          <h3>{{employee.email}}</h3></span
+        >
+        <span
+          >Contact:
+          <h3>{{employee.contact}}</h3></span
+        >
+        <span
+          >Registration date:
+          <h3>{{employee.created}}</h3></span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="downgrade grid2">
+    <div class="employeesa">
+      <hr />
+      <h3>Next of Kin Infor</h3>
+
+      <div class="employee-details card">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Names</td>
+              <td>{{employee.n_fname}} {{employee.n_lname}}</td>
+            </tr>
+            <tr>
+              <td>NIN</td>
+              <td>{{employee.n_nin}}</td>
+            </tr>
+            <tr>
+              <td>Contact</td>
+              <td>{{employee.tel}}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{{employee.n_address}}</td>
+            </tr>
+            <tr>
+              <td>District</td>
+              <td>{{employee.n_district}}</td>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td>{{employee.n_country}}</td>
+            </tr>
+            <tr>
+              <td>Relationship</td>
+
+              <td>{{employee.relationship}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="employeesa">
+      <hr />
+      <h3>Documents</h3>
+
+      <div class="employee-details card">
+        {% if employee.nid %}
+        <li>
+          <i class="fa fa-file"></i>
+          <a href="{{ employee.nid.url }}" target="_blank">National ID</a>
+        </li>
+        {% endif %} {% if employee.cv %}
+        <li>
+          <i class="fa fa-file"></i>
+          <a href="{{ employee.cv.url }}" target="_blank">Resume</a>
+        </li>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="related_employees">
+    <h1>Related employees</h1>
+
+    <div class="employees grid5">
+      {% for employee in relatedemployees %}
+      <a class="employee" href="{% url 'employee' employee.id%}">
+        <img src="{{employee.photo.url}}" alt="" />
+        <div class="atth">
+          <p>{{employee.fname}} {{employee.lname}}</p>
+          <p>{{employee.employee_id}}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

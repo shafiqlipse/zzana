@@ -26,5 +26,9 @@ urlpatterns = [
     path("delete_staff/<int:id>", staff_delete, name="delete_staff"),
     path("employee/<int:id>", staff_details, name="staff"),
 
-
+    # path("departments/", Departments, name="departments"),
+    path("teachers/", all_teachers, name="teachers"),
+    path("addteachers/", teachers, name="add_teacher"),
+    path("delete_teacher/<int:id>", teacher_delete, name="delete_teacher"),
+    path("teacher/<int:id>", teacher_details, name="teacher"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -13,7 +13,7 @@ class BookCategory(models.Model):
 # Create your models here.
 
 
-class Subject(models.Model):
+class Genre(models.Model):
     name = models.CharField(max_length=144)
     created = models.DateField(auto_now_add=True)
     code = models.CharField(max_length=144, null=True, blank=True)
@@ -21,27 +21,12 @@ class Subject(models.Model):
     def __str__(self):
         return self.name
 
-# Create your models here.
-
-
-class Paper(models.Model):
-    name = models.CharField(max_length=144)
-    subject = models.ForeignKey(
-        Subject, verbose_name="subject", on_delete=models.CASCADE)
-    created = models.DateField(auto_now_add=True)
-    code = models.CharField(max_length=144, null=True, blank=True)
-    paper_number = models.IntegerField( null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-# Create your models here.
 
 
 class Book(models.Model):
     title = models.CharField(max_length=144)
     subject = models.ForeignKey(
-        Subject, verbose_name="subject", on_delete=models.CASCADE)
+        Genre, verbose_name="subject", on_delete=models.CASCADE)
     category = models.ForeignKey(
         BookCategory, verbose_name="category", on_delete=models.CASCADE)
     added_by = models.ForeignKey(

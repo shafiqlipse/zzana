@@ -1,0 +1,134 @@
+{% extends "dashboard/dashboard.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %} | Classes{% endblock %}
+<!---->
+{% block content %}
+<!-- Content Wrapper START -->
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-wrapper row">
+      <div class="col-12 col-lg-3 col-md-6">
+        <h4 class="page-title">Classes</h4>
+      </div>
+      <div class="col-12 col-lg-9 col-md-6">
+        <ol class="breadcrumb float-right">
+          <li><a href="index.html">Home</a></li>
+          <li class="active">/ Classes</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Breadcrumb End -->
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-md-12 col-xs-12">
+        <div class="card">
+          <div class="card-header border-bottom">
+            <h4 class="card-title">Class Form</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-description">Add Class</p>
+            <form
+              method="POST"
+              class="forms-sample"
+              enctype="multipart/form-data"
+            >
+              {% csrf_token %} {% if form_errors %}
+              <div class="form-errors">
+                <ul>
+                  {% for field, errors in form_errors.items %}
+                  <li>
+                    {{ field }}:
+                    <ul>
+                      {% for error in errors %}
+                      <li>{{ error }}</li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  {{ form.name }}
+                  <!-- Display inline error for this field -->
+                  {% if form.name.errors %}
+                  <span class="text-danger">
+                    {% for error in form.name.errors %} {{ error }} {% endfor %}
+                  </span>
+                  {% endif %}
+                </div>
+
+                <div class="col-sm-12">
+                  {{ form.class_teacher }}
+                  <!-- Display inline error for this field -->
+                  {% if form.class_teacher.errors %}
+                  <span class="text-danger">
+                    {% for error in form.class_teacher.errors %} {{ error }}
+                    {%endfor %}
+                  </span>
+                  {% endif %}
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-common mr-3">Submit</button>
+              <button type="reset" class="btn btn-light">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-6 col-xs-12">
+        <div class="follow">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Classs</h4>
+              <div class="card-toolbar">
+                <ul>
+                  <li>
+                    <a class="text-gray" href="#">
+                      <i class="lni-more-alt"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <ul class="list-media">
+              {% for class in classes %}
+              <li class="list-item">
+                <div class="client-item">
+                  <div class="media-img">
+                    <i class="fa fa-th"></i>
+                  </div>
+                  <div class="info">
+                    <a href="{% url 'classroom' class.id%}">
+                      <span class="title text-semibold">{{class.name}}</span></a
+                    >
+                    <span class="title text-semibold">{{class.created}}</span>
+
+                    <div class="float-item">
+                      <a
+                        class="btn btn-common btn-rounded"
+                        href="{% url 'delete_class' class.id%}"
+                      >
+                        <i class="fa fa-trash"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Content Wrapper END -->
+{% endblock %}

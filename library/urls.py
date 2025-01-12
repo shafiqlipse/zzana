@@ -12,9 +12,9 @@ urlpatterns = [
     path("delete_category/<int:id>", bcategory_delete, name="delete_category"),
     
     # path("categorys/", Categorys, name="categorys"),
-    path("subjects/", Subjects, name="subjects"),
-    path("delete_subject/<int:id>", subject_delete, name="delete_subject"),
-    path("subject/<int:id>", subject_details, name="subject"),
+    path("genres/", Genres, name="genres"),
+    path("delete_genre/<int:id>", genre_delete, name="delete_genre"),
+    path("genre/<int:id>", genre_details, name="genre"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

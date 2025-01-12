@@ -1,0 +1,74 @@
+{% extends "dashboard/dashboard.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %} | Dashboard{% endblock %}
+<!---->
+{% block content %}
+<!-- Content Wrapper START -->
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-wrapper row">
+      <div class="col-12 col-lg-3 col-md-6">
+        <h4 class="page-title">Teachers</h4>
+      </div>
+      <div class="col-12 col-lg-9 col-md-6">
+        <ol class="breadcrumb float-right">
+          <li><a href="index.html">Home</a></li>
+          <li class="active">/ Teachers</li>
+        </ol>
+      </div>
+    </div>
+    <!-- Breadcrumb End -->
+  </div>
+
+  <div class="container-fluid">
+    <div class="official-list">
+      <table id="myTable" class="display">
+        <thead>
+          <tr>
+            <th>Names</th>
+            <th>NIN</th>
+            <th>Department</th>
+            <th>Role</th>
+            <th>Contact</th>
+            {% if user.is_admin %}
+            <th>Actions</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for teacher in allteachers%}
+          <tr>
+            <td>
+              <a href="{% url 'teacher' teacher.id%}"
+                >{{teacher.fname}} {{teacher.lname}}</a
+              >
+            </td>
+            <td>{{teacher.nin}}</td>
+            <td>{{teacher.department}}</td>
+            <td>{{teacher.role}}</td>
+            <td>{{teacher.contact}}</td>
+            {% if user.is_admin %}
+            <td>
+              <div class="report">
+                <a href=""
+                  ><i class="fa fa-pencil-square" aria-hidden="true">Edit</i>
+                </a>
+                <a href="{% url 'delete_teacher' teacher.id%}"
+                  ><i class="fa fa-trash" aria-hidden="true">Delete</i>
+                </a>
+              </div>
+            </td>
+            {% endif %}
+          </tr>
+
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Content Wrapper END -->
+{% endblock %}

@@ -1,0 +1,130 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Quicksand", serif;
+  font-optical-sizing: auto;
+}
+.container-scroller {
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("https://cdn.create.vista.com/api/media/medium/40494607/stock-photo-blue-metal-background?token=");
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: center;
+  .body-wrapper {
+    width: 60%;
+    height: 500px;
+    box-shadow: #171717 1px 1px 10px 1px;
+    border-radius: 20px;
+    overflow: hidden;
+    @media (max-width: 990px) {
+      width: 80%;
+    }
+    @media (max-width: 768px) {
+      flex-direction: column;
+      height: auto;
+    }
+    @media (max-width: 340px) {
+      width: 100%;
+    }
+    .image-box {
+      width: 50%;
+      height: 100%;
+      padding: 20px;
+      background-color: #283b68;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+      img {
+        width: 100px;
+      }
+      .usssa-text {
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+    .fomit {
+      width: 50%;
+      height: 100%;
+      background-color: #fff;
+      padding: 20px;
+      flex-direction: column;
+      justify-content: center;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+      form {
+        width: 100%;
+        padding: 0 40px;
+        @media (max-width: 768px) {
+          padding: 0;
+        }
+        .form-group {
+          width: 100%;
+          text-align-last: left;
+
+          .shurt {
+            padding: 8px;
+            background-color: #efefef;
+            margin-bottom: 20px;
+            border-left: 3px solid #283b68;
+            input {
+              width: 100%;
+              border: 0;
+              margin-right: 2px;
+              outline: none;
+              background-color: transparent;
+            }
+          }
+        }
+
+        .form-between {
+          font-size: 0.9rem;
+          padding-right: 10px;
+          a {
+            text-decoration: none;
+            color: #283b68;
+            font-weight: bold;
+          }
+        }
+
+        .enter-btn {
+          width: 100%;
+          padding: 10px;
+          background-color: #283b68;
+          color: white;
+          border: 0;
+          cursor: pointer;
+          font-weight: bold;
+          border-radius: 5px;
+          margin-top: 20px;
+          &:hover {
+            background-color: #283b68;
+          }
+        }
+        .sign-up {
+          font-size: 0.9rem;
+          text-align: center;
+          margin-top: 10px;
+          a {
+            text-decoration: none;
+            color: #283b68;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{% extends "dashboard/dashboard.html" %}
+
+<!--static-->
+{% block title %} | {{teacher.fname}} {{teacher.lname}}{% endblock %}
+<!--static-->
+{% load static %}
+<!--khfufufu-->
+{% block content %}
+<div class="main-content">
+  <div class="teacher flex">
+    <div class="img-ath">
+      {% if teacher.photo %}
+      <img src="{{teacher.photo.url}}" alt="" />
+      {% else %}
+      <img src="{% static 'images/profile.png'%}" alt="" />{% endif %}
+    </div>
+    <div class="line-ath">
+      <h1>{{teacher.fname}} {{teacher.lname}}</h1>
+
+      <span>{{teacher.gender}}</span> |
+      <span>{{teacher.marital}}</span>
+
+      <hr />
+      <div class="small-details grid3">
+        <span>
+          ID Number:
+          <h3>{{teacher.nin}}</h3></span
+        >
+        <span
+          >Department:
+          <h3>{{teacher.department}}</h3></span
+        >
+        <span
+          >Role:
+          <h3>{{teacher.role}}</h3></span
+        >
+        <span
+          >Date of Birth:
+          <h3>{{teacher.date_of_brth}}</h3></span
+        >
+        <span
+          >Class:
+          <h3>{{teacher.email}}</h3></span
+        >
+        <span
+          >Contact:
+          <h3>{{teacher.contact}}</h3></span
+        >
+        <span
+          >Registration date:
+          <h3>{{teacher.created}}</h3></span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="downgrade grid2">
+    <div class="teachersa">
+      <hr />
+      <h3>Next of Kin Infor</h3>
+
+      <div class="teacher-details card">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Names</td>
+              <td>{{teacher.n_fname}} {{teacher.n_lname}}</td>
+            </tr>
+            <tr>
+              <td>NIN</td>
+              <td>{{teacher.n_nin}}</td>
+            </tr>
+            <tr>
+              <td>Contact</td>
+              <td>{{teacher.tel}}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{{teacher.n_address}}</td>
+            </tr>
+            <tr>
+              <td>District</td>
+              <td>{{teacher.n_district}}</td>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td>{{teacher.n_country}}</td>
+            </tr>
+            <tr>
+              <td>Relationship</td>
+
+              <td>{{teacher.relationship}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="teachersa">
+      <hr />
+      <h3>Documents</h3>
+
+      <div class="teacher-details card">
+        {% if teacher.nid %}
+        <li>
+          <i class="fa fa-file"></i>
+          <a href="{{ teacher.nid.url }}" target="_blank">National ID</a>
+        </li>
+        {% endif %} {% if teacher.cv %}
+        <li>
+          <i class="fa fa-file"></i>
+          <a href="{{ teacher.cv.url }}" target="_blank">Resume</a>
+        </li>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="related_teachers">
+    <h1>Related teachers</h1>
+
+    <div class="teachers grid5">
+      {% for teacher in relatedteachers %}
+      <a class="teacher" href="{% url 'teacher' teacher.id%}">
+        <img src="{{teacher.photo.url}}" alt="" />
+        <div class="atth">
+          <p>{{teacher.fname}} {{teacher.lname}}</p>
+          <p>{{teacher.teacher_id}}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
