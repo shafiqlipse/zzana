@@ -217,7 +217,3 @@ def Complaints(request):
 # -------------------------------------------Chat views------------------------------------------------
 # +++++++++++++++++++++++++++++_________)))))))))))))(((((((((*************&&&&&&&&&^^^^^^^^^^^^^%)))))))))
 
-def chat_room(request, room_name):
-    return render(request, 'accounts/chat.html', {
-        'room_name': room_name
-    })

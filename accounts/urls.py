@@ -8,7 +8,6 @@ urlpatterns = [
     path("login/", user_login, name="login"),
     path("logout/", user_logout, name="logout"),
     path("confirm/", Confirm, name="confirm"),
-    path('chat/<str:room_name>/', chat_room, name='chat_room'),
     path('success/', success, name='success'),
     path("change_password/", change_password, name="change_password"),
     path("password-reset/", ResetPasswordView.as_view(), name="password_reset"),
