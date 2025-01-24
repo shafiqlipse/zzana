@@ -139,18 +139,18 @@ def return_equipment(request, checkout_id):
     
     return render(request, 'lab/return_form.html', {'checkout': checkout})
 
-@login_required
-def dashboard(request):
-    context = {
-        'equipment_count': Equipment.objects.count(),
-        'chemical_count': Chemical.objects.count(),
-        'active_experiments': Experiment.objects.filter(researcher=request.user, status='IP').count(),
-        'recent_experiments': Experiment.objects.filter(researcher=request.user).order_by('-start_date')[:5],
-        'current_checkouts': EquipmentCheckout.objects.filter(checked_out_by=request.user, status='CO'),
-        'overdue_checkouts': EquipmentCheckout.objects.filter(
-            checked_out_by=request.user,
-            status='CO',
-            expected_return_date__lt=timezone.now()
-        )
-    }
-    return render(request, 'lab/dashboard.html', context)
+# @login_required
+# def dashboard(request):
+#     context = {
+#         'equipment_count': Equipment.objects.count(),
+#         'chemical_count': Chemical.objects.count(),
+#         'active_experiments': Experiment.objects.filter(researcher=request.user, status='IP').count(),
+#         'recent_experiments': Experiment.objects.filter(researcher=request.user).order_by('-start_date')[:5],
+#         'current_checkouts': EquipmentCheckout.objects.filter(checked_out_by=request.user, status='CO'),
+#         'overdue_checkouts': EquipmentCheckout.objects.filter(
+#             checked_out_by=request.user,
+#             status='CO',
+#             expected_return_date__lt=timezone.now()
+#         )
+#     }
+#     return render(request, 'lab/dashboard.html', context)

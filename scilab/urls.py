@@ -7,7 +7,7 @@ from .views import *
 
 
 urlpatterns = [
-    path('', dashboard, name='dashboard'),
+    # path('', dashboard, name='dashboard'),
     path('equipment/', equipment_list, name='equipment_list'),
     path('equipment/<int:id>/', equipment_detail, name='equipment_detail'),
     path('chemicals/', chemical_list, name='chemical_list'),
