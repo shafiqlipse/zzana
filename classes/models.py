@@ -49,8 +49,8 @@ class Stream(models.Model):
 # Create your models here.
 # Timetable model
 class Timetable(models.Model):
-    class_name = models.ForeignKey(Class, related_name="timetables", on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, related_name="timetables", on_delete=models.CASCADE)
+    class_name = models.ForeignKey(Stream, related_name="timetables", on_delete=models.CASCADE)
+    subject = models.ForeignKey(Paper, related_name="timetables", on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, related_name="timetables", on_delete=models.CASCADE)
     day_of_week = models.CharField(max_length=9, choices=[('Monday', 'Monday'), ('Tuesday', 'Tuesday'), ('Wednesday', 'Wednesday'),
                                                           ('Thursday', 'Thursday'), ('Friday', 'Friday'), ('Saturday', 'Saturday')])

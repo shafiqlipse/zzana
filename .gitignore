@@ -4,6 +4,7 @@ stahiza/settings.py
 # ignore filefolders
 student_photos/
 staff_photos/
+national_ids/
 
 # Django migrations
 accounts/migrations/*

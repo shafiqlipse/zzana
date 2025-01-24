@@ -2,91 +2,156 @@
 <!---->
 {% load static %}
 <!---->
-{% block title %} | Students{% endblock %}
+{% block title %} | Dashboard{% endblock %}
 <!---->
 {% block content %}
-<div class="main-content">
-  <div class="container-fluid">
-    <!-- Breadcrumb Start -->
-    <div class="breadcrumb-wrapper row">
-      <div class="col-12 col-lg-3 col-md-6">
-        <h4 class="page-title">Students</h4>
-      </div>
-      <div class="col-12 col-lg-9 col-md-6">
-        <ol class="breadcrumb float-right">
-          <li><a href="{% url 'dashboard'%}">Dashboard</a></li>
-          <li class="active">/ Students</li>
-        </ol>
-      </div>
-    </div>
-    <!-- Breadcrumb End -->
-  </div>
+<!-- Content Wrapper START -->
+<!-- Page Content -->
 
-  <div class="container-fluid">
-    <div class="filter flex">
-      <form method="get" class="forms-sample grid5">
-        <div class="form-group flex">
-          <label for="gender">Gender</label>
-          {{ student_filter.form.gender }}
+<div id="app-content">
+  <!-- Container fluid -->
+  <div class="app-content-area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+          <!-- Page header -->
+          <div class="mb-5">
+            <h3 class="mb-0">Employees</h3>
+          </div>
         </div>
-        <div class="form-group flex">
-          <label for="school">Class</label>
-          {{ student_filter.form.classroom }}
-        </div>
-        <div class="form-group flex">
-          <label for="school">Residence</label>
-          {{ student_filter.form.residence }}
-        </div>
-        <div class="form-group flex">
-          <label for="school">Name</label>
-          {{ student_filter.form.name }}
-        </div>
-        <div class="form-group flex">
-          <a href="{% url 'export_scsv' %}">Export CSV</a>
-          <button type="submit" class="btn btn-common mr-3">Filter</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="filterlist card">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Student Names</th>
-            <th>School</th>
-            <th>Nationality</th>
-            <th>Gender</th>
-            <th>Class</th>
-            <th>Date of Birth</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for student in student_filter.qs %}
-          <tr>
-            <td>
-              <a href="{% url 'student' student.id%}">
-                <img src="{{student.photo.url}}" alt="image" />
-                <span class="pl-2"
-                  >{{student.fname}} {{student.lname}}</span
-                ></a
-              >
-            </td>
-            <td>{{student.prev_sch}}</td>
-            <td>{{student.nationality}}</td>
-            <td>{{student.gender}}</td>
-            <td>{{student.classroom}}</td>
-            <td>{{student.dob}}</td>
-            <td>
-              <div class="badge badge-outline-success">
-                {{student.status}}
+      </div>
+      <div>
+        <div class="col-12">
+          <div class="card p10-0">
+            <div class="card-header d-md-flex border-bottom-0">
+              <div class="flex-grow-1">
+                <a href="{% url 'addstudent'%}" class="btn btn-primary"
+                  >+ Add Student</a
+                >
               </div>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+              <div class="mt-3 mt-md-0">
+                <a
+                  href="#!"
+                  class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                  data-template="settingOne"
+                >
+                  <i data-feather="settings" class="icon-xs"></i>
+                  <div id="settingOne" class="d-none">
+                    <span>Setting</span>
+                  </div>
+                </a>
+
+                <a href="#!" class="btn btn-outline-white ms-2">Import</a>
+                <a href="#!" class="btn btn-outline-white ms-2">Export</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive table-card">
+                <table
+                  id="example"
+                  class="table text-nowrap table-centered mt-0"
+                  style="width: 100%"
+                >
+                  <thead class="table-light">
+                    <tr>
+                      <th class="ps-1">Student</th>
+                      <th>Stream</th>
+                      <th>Index Number</th>
+                      <th>Date Of Birth</th>
+                      <th>Gender</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for student in student_filter.qs %}
+                    <tr>
+                      <td class="ps-0">
+                        <div class="d-flex align-items-center">
+                          <img
+                            src="{{student.photo.url}}"
+                            alt=""
+                            class="img-2by3-sm rounded-circle"
+                          />
+                          <div class="ms-3">
+                            <h5 class="mb-0">
+                              <a href="{% url 'student' student.id%}" class="text-inherit"
+                                >{{student.fname}} {{student.lname}}</a
+                              >
+                            </h5>
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{student.stream}}</td>
+                      <td>{{student.index_number}}</td>
+                      <td>{{student.dob}}</td>
+                      <td>{{student.gender}}</td>
+                      <td>
+                        <span class="badge badge-success-soft">Active</span>
+                      </td>
+                      <td>
+                        <button
+                          id="create-user-btn"
+                          data-url=""
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="eyeOne"
+                        >
+                          <i data-feather="eye" class="icon-xs"></i>
+                          <div id="eyeOne" class="d-none">
+                            <span>Activate</span>
+                          </div>
+                        </button>
+
+                        <a
+                          href="#!"
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="editOne"
+                        >
+                          <i data-feather="edit" class="icon-xs"></i>
+                          <div id="editOne" class="d-none">
+                            <span>Edit</span>
+                          </div>
+                        </a>
+                        <a
+                          href="#!"
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="trashOne"
+                        >
+                          <i data-feather="trash-2" class="icon-xs"></i>
+                          <div id="trashOne" class="d-none">
+                            <span>Delete</span>
+                          </div>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- Content Wrapper END -->
+  <script>
+    $("#create-user-btn").on("click", function () {
+      const url = $(this).data("url");
+
+      $.ajax({
+        url: url,
+        type: "GET",
+        success: function (response) {
+          alert(response.message);
+        },
+        error: function (xhr) {
+          alert(xhr.responseJSON.message);
+        },
+      });
+    });
+  </script>
+  <!-- Content Wrapper END -->
 </div>
-{% endblock content %}
+{% endblock %}

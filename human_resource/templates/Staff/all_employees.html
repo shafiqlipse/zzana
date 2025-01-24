@@ -6,69 +6,152 @@
 <!---->
 {% block content %}
 <!-- Content Wrapper START -->
-<div class="main-content">
-  <div class="container-fluid">
-    <!-- Breadcrumb Start -->
-    <div class="breadcrumb-wrapper row">
-      <div class="col-12 col-lg-3 col-md-6">
-        <h4 class="page-title">Employees</h4>
-      </div>
-      <div class="col-12 col-lg-9 col-md-6">
-        <ol class="breadcrumb float-right">
-          <li><a href="index.html">Home</a></li>
-          <li class="active">/ Employees</li>
-        </ol>
-      </div>
-    </div>
-    <!-- Breadcrumb End -->
-  </div>
+<!-- Page Content -->
 
-  <div class="container-fluid">
-    <div class="official-list">
-      <table id="myTable" class="display">
-        <thead>
-          <tr>
-            <th>Names</th>
-            <th>NIN</th>
-            <th>Department</th>
-            <th>Role</th>
-            <th>Contact</th>
-            {% if user.is_admin %}
-            <th>Actions</th>
-            {% endif %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for employee in allemployees%}
-          <tr>
-            <td>
-              <a href="{% url 'staff' employee.id%}"
-                >{{employee.fname}} {{employee.lname}}</a
-              >
-            </td>
-            <td>{{employee.nin}}</td>
-            <td>{{employee.department}}</td>
-            <td>{{employee.role}}</td>
-            <td>{{employee.contact}}</td>
-            {% if user.is_admin %}
-            <td>
-              <div class="report">
-                <a href="{% url 'semployeechoolupdate' school.id%}"
-                  ><i class="fa fa-pencil-square" aria-hidden="true">Edit</i>
-                </a>
-                <a href="{% url 'delschool' school.id%}"
-                  ><i class="fa fa-trash" aria-hidden="true">Delete</i>
-                </a>
+<div id="app-content">
+  <!-- Container fluid -->
+  <div class="app-content-area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+          <!-- Page header -->
+          <div class="mb-5">
+            <h3 class="mb-0">Employees</h3>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="col-12">
+          <div class="card p10-0">
+            <div class="card-header d-md-flex border-bottom-0">
+              <div class="flex-grow-1">
+                <a href="{% url 'add_employee'%}" class="btn btn-primary"
+                  >+ Add Employee</a
+                >
               </div>
-            </td>
-            {% endif %}
-          </tr>
+              <div class="mt-3 mt-md-0">
+                <a
+                  href="#!"
+                  class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                  data-template="settingOne"
+                >
+                  <i data-feather="settings" class="icon-xs"></i>
+                  <div id="settingOne" class="d-none">
+                    <span>Setting</span>
+                  </div>
+                </a>
 
-          {%endfor%}
-        </tbody>
-      </table>
+                <a href="#!" class="btn btn-outline-white ms-2">Import</a>
+                <a href="#!" class="btn btn-outline-white ms-2">Export</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive table-card">
+                <table
+                  id="example"
+                  class="table text-nowrap table-centered mt-0"
+                  style="width: 100%"
+                >
+                  <thead class="table-light">
+                    <tr>
+                      <th class="ps-1">Employee</th>
+                      <th>Contact</th>
+                      <th>Department</th>
+                      <th>Role</th>
+                      <th>Gender</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for employee in allemployees %}
+                    <tr>
+                      <td class="ps-0">
+                        <div class="d-flex align-items-center">
+                          <img
+                            src="{{employee.photo.url}}"
+                            alt=""
+                            class="img-2by3-sm rounded-circle"
+                          />
+                          <div class="ms-3">
+                            <h5 class="mb-0">
+                              <a href="" class="text-inherit"
+                                >{{employee.fname}} {{employee.lname}}</a
+                              >
+                            </h5>
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{employee.contact}}</td>
+                      <td>{{employee.department}}</td>
+                      <td>{{employee.role}}</td>
+                      <td>{{employee.gender}}</td>
+                      <td>
+                        <span class="badge badge-success-soft">Active</span>
+                      </td>
+                      <td>
+                        <button
+                          id="create-user-btn"
+                          data-url="{% url 'create_user_from_employee' employee.id %}"
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="eyeOne"
+                        >
+                          <i data-feather="eye" class="icon-xs"></i>
+                          <div id="eyeOne" class="d-none">
+                            <span>Activate</span>
+                          </div>
+                        </button>
+
+                        <a
+                          href="#!"
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="editOne"
+                        >
+                          <i data-feather="edit" class="icon-xs"></i>
+                          <div id="editOne" class="d-none">
+                            <span>Edit</span>
+                          </div>
+                        </a>
+                        <a
+                          href="#!"
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="trashOne"
+                        >
+                          <i data-feather="trash-2" class="icon-xs"></i>
+                          <div id="trashOne" class="d-none">
+                            <span>Delete</span>
+                          </div>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- Content Wrapper END -->
+  <script>
+    $("#create-user-btn").on("click", function () {
+      const url = $(this).data("url");
+
+      $.ajax({
+        url: url,
+        type: "GET",
+        success: function (response) {
+          alert(response.message);
+        },
+        error: function (xhr) {
+          alert(xhr.responseJSON.message);
+        },
+      });
+    });
+  </script>
+  <!-- Content Wrapper END -->
 </div>
-<!-- Content Wrapper END -->
 {% endblock %}

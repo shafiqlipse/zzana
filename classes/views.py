@@ -138,23 +138,34 @@ def timetable_create(request):
             period=period,
         )
         timetable.save()
-        return redirect('timetable_list')
+        return redirect('timetable')
 
-    subjects = Subject.objects.all()
+    subjects = Paper.objects.all()
     teachers = Teacher.objects.all()
-    class_name = Class.objects.all()
+    class_name = Stream.objects.all()
     return render(request, 'timetable/timetable_create.html', {'subjects': subjects, 'teachers': teachers, 'class_name': class_name})
 
 
 def timetable_view(request):
-    # Fetch all timetable entries ordered by day and period
-    timetable_data = Timetable.objects.all().order_by('day_of_week', 'start_time')
-    
+    # Get the class filter from the request parameters (if provided)
+    selected_class = request.GET.get('class')
+
+    # Fetch timetable entries, optionally filtering by class
+    if selected_class:
+        timetable_data = Timetable.objects.filter(class_name=selected_class).order_by('day_of_week', 'start_time')
+    else:
+        timetable_data = Timetable.objects.all().order_by('day_of_week', 'start_time')
+
     # Group timetable data by day of the week
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     timetable_by_day = {day: timetable_data.filter(day_of_week=day) for day in days}
-    
+
+    # Get a list of all available classes for the filter dropdown
+    available_classes = Timetable.objects.values_list('class_name', flat=True).distinct()
+
     context = {
         'timetable_by_day': timetable_by_day,
+        'available_classes': available_classes,
+        'selected_class': selected_class,  # Pass the selected class for UI highlighting
     }
     return render(request, 'timetable/timetable.html', context)

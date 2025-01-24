@@ -178,7 +178,7 @@ def all_employees(request):
 @login_required(login_url="login")
 def teachers(request):
     form_errors = None  # To capture errors if the form is invalid
-
+    allteachers = Teacher.objects.all()
     if request.method == "POST":
         form = TeacherForm(request.POST, request.FILES)
         if form.is_valid():
@@ -208,6 +208,7 @@ def teachers(request):
 
     context = {
         "form": form,
+        "allteachers": allteachers,
         "form_errors": form_errors,  # Pass form errors to the template if needed
     }
     return render(request, "Teacher/add_teacher.html", context)
@@ -237,3 +238,153 @@ def all_teachers(request):
     allteachers = Teacher.objects.all()
     context = {"allteachers": allteachers}
     return render(request, 'Teacher/all_teachers.html', context)
+
+
+
+# =====================================Leave views===================================
+@login_required
+def apply_leave(request):
+    leaves = Leave.objects.filter(employee=request.user).order_by('-applied_on')
+    if request.method == 'POST':
+        form = LeaveForm(request.POST)
+        if form.is_valid():
+            leave = form.save(commit=False)
+            leave.employee = request.user
+            leave.save()
+            messages.success(request, 'Your leave request has been submitted.')
+            return redirect('leave_list')
+    else:
+        form = LeaveForm()
+        
+    context={'form': form,'leaves': leaves}
+    return render(request, 'leave/leave_list.html', context)
+
+
+from django.utils.timezone import now
+
+@login_required
+def review_leave(request, id):
+    if not request.user.is_staff:  # Only admins or HR staff can review
+        return redirect('leave_list')
+
+    leave = Leave.objects.get(id=id)
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        if status in ['APPROVED', 'REJECTED']:
+            leave.status = status
+            leave.reviewed_on = now()
+            leave.reviewed_by = request.user
+            leave.save()
+            messages.success(request, f'Leave request has been {status.lower()}.')
+            return redirect('leave/leave_review_list')
+    
+    return render(request, 'leave/review_leave.html', {'leave': leave})
+
+
+@login_required
+def leave_review_list(request):
+    if not request.user.is_staff:
+        return redirect('leave_list')
+    
+    leaves = Leave.objects.all().order_by('-applied_on')
+    return render(request, 'leave/leave_review_list.html', {'leaves': leaves})
+
+
+# from django.shortcuts import render, redirect, get_object_or_404
+# from django.contrib.auth.decorators import login_required
+# from .models import Request, Staff
+from .utils import get_next_approver  # utility function
+
+    
+
+@login_required
+def create_request(request):
+    if request.method == 'POST':
+        description = request.POST['description']
+        employee = Employee.objects.get(user=request.user)
+        next_approver = get_next_approver(employee)
+        Request.objects.create(
+            requester=employee,
+            description=description,
+            current_approver=next_approver
+        )
+        return redirect('dashboard')
+    return render(request, 'create_request.html')
+
+from django.contrib.auth.decorators import user_passes_test
+
+def is_approver(user):
+    employee = Employee.objects.get(user=user)
+    return employee.role.level <= 2  # Example: Only Headteachers and HODs can approve
+
+@user_passes_test(is_approver)
+def approve_request(request, request_id):
+    req = get_object_or_404(Request, id=request_id)
+    if request.method == 'POST':
+        action = request.POST['action']
+        if action == 'approve':
+            req.status = 'Approved' if not req.next_approver else 'Pending'
+            req.current_approver = req.next_approver
+            req.next_approver = get_next_approver(req.current_approver)
+        elif action == 'reject':
+            req.status = 'Rejected'
+        req.save()
+        return redirect('approvals')
+    return render(request, 'requests/approve_request.html', {'request': req})
+
+
+def request_list_view(request):
+
+    employee = get_object_or_404(Employee, user=request.user)
+
+    if employee.role.level == 1:  # Headteacher can view all requests
+            requests = Request.objects.all().order_by('-timestamp')
+    else:
+            # Requesters see their own requests; approvers see requests assigned to them
+            requests = Request.objects.filter(
+                models.Q(requester=employee) | models.Q(current_approver=employee)
+            ).order_by('-timestamp')
+
+    return render(request, 'requests/request_list.html', {'requests': requests})
+
+
+# from django.core.mail import send_mail
+from django.core.mail import send_mail
+from django.http import JsonResponse
+def create_user_from_employee(request, id):
+    employee = get_object_or_404(Employee, id=id)
+
+    if employee.user:
+        return JsonResponse({'status': 'error', 'message': 'User already exists for this employee.'}, status=400)
+
+    # Create the User instance
+    user = User.objects.create_user(
+        username=employee.email.split('@')[0],
+        email=employee.email,
+        first_name=employee.fname,
+        last_name=employee.lname,
+        password='defaultpassword123'  # Default password; recommend prompting a change
+    )
+
+    # Associate the User with the Employee
+    employee.user = user
+    employee.save()
+
+    # Send an email notification
+    subject = 'Your Account Has Been Created'
+    message = f"""
+    Dear {employee.fname},
+
+    Your account has been successfully created. 
+    Please log in using the following credentials:
+
+    Username: {user.username}
+    Password: defaultpassword123 (please change your password immediately)
+
+    Regards,
+    Admin Team
+    """
+    send_mail(subject, message, 'admin@example.com', [employee.email])
+
+    # Return a success alert as JSON response
+    return JsonResponse({'status': 'success', 'message': f"User created successfully for {employee.fname} {employee.lname}."})

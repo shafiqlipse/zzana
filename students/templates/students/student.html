@@ -1,208 +1,266 @@
 {% extends "dashboard/dashboard.html" %}
-
-<!--static-->
-{% block title %} | {{student.fname}} {{student.lname}}{% endblock %}
-<!--static-->
+<!---->
 {% load static %}
-<!--khfufufu-->
+<!---->
+{% block title %} | Dashboard{% endblock %}
+<!---->
 {% block content %}
-<div class="main-content">
-  <div class="student flex">
-    <div class="img-ath">
-      {% if student.photo %}
-      <img src="{{student.photo.url}}" alt="" />
-      {% else %}
-      <img src="{% static 'images/profile.png'%}" alt="" />{% endif %}
-    </div>
-    <div class="line-ath">
-      <h1>{{student.fname}} {{student.lname}}</h1>
+<div id="app-content">
+  <div class="app-content-area">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <!-- col -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+          <!-- Bg -->
+          <div
+            class="pt-20 rounded-top"
+            style="
+              background: url(https://wallpapers.com/images/high/high-resolution-blue-background-1920-x-1080-9ievy5j853ofx6e1.webp)
+                no-repeat;
+              background-size: cover;
+            "
+          ></div>
 
-      <span>{{student.gender}}</span>
+          <div class="card rounded-bottom smooth-shadow-sm">
+            <div
+              class="d-flex align-items-center justify-content-between pt-4 pb-6 px-4"
+            >
+              <div class="d-flex align-items-center">
+                <!-- avatar -->
+                <div
+                  class="avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10"
+                >
+                  <img
+                    src="{{student.photo.url}}"
+                    class="avatar-xxl rounded-circle border border-2"
+                    alt="Image"
+                  />
+                </div>
+                <!-- text -->
+                <div class="lh-1">
+                  <h2 class="mb-0">
+                    {{student.fname}} {{student.lname}}
+                    <a href="#!" class="text-decoration-none"> </a>
+                  </h2>
+                  <p class="mb-0 d-block">
+                    @{{student.fname}}{{student.lname}}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <a
+                  href="profile-edit.html"
+                  class="btn btn-outline-primary d-none d-md-block"
+                  >Edit Profile</a
+                >
+              </div>
+            </div>
+            <!-- navs -->
 
-      <hr />
-      <div class="small-details grid3">
-        <span>
-          Index Number:
-          <h3>{{student.index_number}}</h3></span
-        >
-        <span
-          >Nationality:
-          <h3>{{student.nationality}}</h3></span
-        >
-        <span
-          >Date of Birth:
-          <h3>{{student.dob}}</h3></span
-        >
-        <span
-          >Class:
-          <h3>{{student.classroom}}</h3></span
-        >
-        <span
-          >Previous School:
-          <h3>{{student.prev_sch}}</h3></span
-        >
-        <span
-          >Registration date:
-          <h3>{{student.created}}</h3></span
-        >
-        <span
-          >Status:
-          <h3>{{student.status}}</h3></span
-        >
-        {% if user.is_staff %}
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#exampleModal"
-        >
-          Activate Student
-        </button>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  <div class="downgrade grid2">
-    <div class="studentsa">
-      <h3>Guardian Infor</h3>
-      <hr />
-      <div class="student-details card">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td>Names</td>
-              <td>{{student.guardian_fname}} {{student.guardian_lname}}</td>
-            </tr>
-            <tr>
-              <td>NIN</td>
-              <td>{{student.nin}}</td>
-            </tr>
-            <tr>
-              <td>Contact</td>
-              <td>{{student.phone}}</td>
-            </tr>
-            <tr>
-              <td>Address</td>
-              <td>{{student.address}}</td>
-            </tr>
-            <tr>
-              <td>District</td>
-              <td>{{student.district}}</td>
-            </tr>
-            <tr>
-              <td>Country</td>
-              <td>{{student.country}}</td>
-            </tr>
-            <tr>
-              <td>Relationship</td>
+            <!-- navs -->
+            <ul class="nav nav-lt-tab px-4" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <button
+                  class="nav-link active"
+                  id="home-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#overview"
+                  type="button"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+                >
+                  Overview
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#projects"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Projects
+                </button>
+              </li>
 
-              <td>{{student.relationship}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="studenta">
-      <h3>Documents</h3>
-      <hr />
-      <div class="student-details card">
-        <li>
-          {% if student.ple_certificate %}
-          <i class="fa fa-file"></i>
-          <a href="{{ student.ple_certificate.url }}" target="_blank"
-            >PLE Certificate</a
-          >
-          {% endif %}
-        </li>
-        <li>
-          {% if student.uce_certificate %}
-          <i class="fa fa-file"></i>
-          <a href="{{ student.uce_certificate.url }}" target="_blank"
-            >UCE Certificate</a
-          >
-          {% endif %}
-        </li>
-        <li>
-          {% if student.student_pass %}
-          <i class="fa fa-file"></i>
-          <a href="{{ student.student_pass.url }}" target="_blank"
-            >Student Pass</a
-          >
-          {% endif %}
-        </li>
-        <li>
-          {% if student.refugee_card %}
-          <i class="fa fa-file"></i>
-          <a href="{{ student.refugee_card.url }}" target="_blank"
-            >Refugee Card</a
-          >
-          {% endif %}
-        </li>
-        <li>
-          {% if student.uneb_eq_results %}
-          <i class="fa fa-file"></i>
-          <a href="{{ student.uneb_eq_results.url }}" target="_blank"
-            >UNEB Equated Results</a
-          >
-          {% endif %}
-        </li>
-        {% if student.qr_code %}
-        <img src="{{student.qr_code.url}}" alt="" />{% endif %}
-      </div>
-    </div>
-  </div>
-
-  <div class="related_students">
-    <h1>Related students</h1>
-    <p>Athletes from the same school</p>
-    <div class="students grid5">
-      {% for student in relatedstudents %}
-      <a class="student" href="{% url 'student' student.id%}">
-        <img src="{{student.photo.url}}" alt="" />
-        <div class="atth">
-          <p>{{student.fname}} {{student.lname}}</p>
-          <p>{{student.student_id}}</p>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#exams"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Exams
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#disciplinary"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Disciplinary
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#clubs"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Clubs
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Profile
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-      </a>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Championship</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %} {{ dform.as_p }}
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
-            Cancel
-          </button>
+      </div>
+      <div class="py-6 tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="overview"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+          <div>
+            <!-- row -->
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-12 mb-5">
+                <!-- card -->
+                <div class="card h-100">
+                  <!-- card body -->
+                  <div class="card-header">
+                    <h4 class="mb-0">About</h4>
+                  </div>
+                  <div class="card-body">
+                    <!-- row -->
+                    <div class="row">
+                      <div class="col-12 mb-5">
+                        <!-- text -->
+                        <h5 class="text-uppercase">Index Number</h5>
+                        <p class="mb-0">{{student.index_number}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Class/Stream</h5>
+                        <p class="mb-0">
+                          {{student.classroom}}/{{student.stream}}
+                        </p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">LIN</h5>
+                        <p class="mb-0">{{student.lin}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Residence</h5>
+                        <p class="mb-0">{{student.residence}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Gender</h5>
+                        <p class="mb-0">{{student.gender}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Nationality</h5>
+                        <p class="mb-0">{{student.nationality}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Date of Birth</h5>
+                        <p class="mb-0">{{student.dob}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-12 mb-5">
+                <!-- card -->
+                <div class="card h-100">
+                  <!-- card body -->
+                  <div class="card-header">
+                    <h4 class="mb-0">Guardian Info</h4>
+                  </div>
+                  <div class="card-body">
+                    <!-- row -->
+                    <div class="row">
+                      <div class="col-12 mb-5">
+                        <!-- text -->
+                        <h5 class="text-uppercase">Names</h5>
+                        <p class="mb-0">
+                          {{student.guardian_fname}} {{student.guardian_fname}}
+                        </p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">National ID</h5>
+                        <p class="mb-0">{{student.nin}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Phone</h5>
+                        <p class="mb-0">{{student.phone}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Other Phone</h5>
+                        <p class="mb-0">{{student.other_phone}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Email</h5>
+                        <p class="mb-0">{{student.email}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Relationship</h5>
+                        <p class="mb-0">Dashui@gmail.com</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Location</h5>
+                        <p class="mb-0">{{student.address}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">District</h5>
+                        <p class="mb-0">{{student.district}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Country</h5>
+                        <p class="mb-0">{{student.country}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endblock %}
         </div>
       </div>
     </div>
   </div>
 </div>
-{% endblock %}

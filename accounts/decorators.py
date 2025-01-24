@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseForbidden
 from functools import wraps
-
+from human_resource.models import Employee
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
@@ -72,3 +72,13 @@ def anonymous_required(view_func):
             return view_func(request, *args, **kwargs)
 
     return _wrapped_view
+
+
+# from django.contrib.auth.decorators import user_passes_test
+# from django.contrib.auth.decorators import user_passes_test
+# from django.contrib.auth.decorators import user_passes_test
+
+def is_approver(user):
+    staff = Employee.objects.get(user=user)
+    return staff.role.level <= 2  # Example: Only Headteachers and HODs can approve
+

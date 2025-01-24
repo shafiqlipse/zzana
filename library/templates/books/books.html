@@ -1,0 +1,300 @@
+{% extends "dashboard/dashboard.html" %}
+<!---->
+{% load static %}
+<!---->
+{% block title %} | Dashboard{% endblock %}
+<!---->
+{% block content %}
+<!-- Content Wrapper START -->
+<!-- Page Content -->
+
+<div id="app-content">
+  <!-- Container fluid -->
+  <div class="app-content-area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+          <!-- Page header -->
+          <div class="mb-5">
+            <h3 class="mb-0">Books</h3>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="col-12">
+          <div class="card p10-0">
+            <div class="card-header d-md-flex border-bottom-0">
+              <div class="d-grid mb-4">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#add-edit-class-modal"
+                  id="create-new-class-btn"
+                  >+ Add Book</a
+                >
+              </div>
+              <div class="mt-3 mt-md-0">
+                <a
+                  href="#!"
+                  class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                  data-template="settingOne"
+                >
+                  <i data-feather="settings" class="icon-xs"></i>
+                  <div id="settingOne" class="d-none">
+                    <span>Setting</span>
+                  </div>
+                </a>
+
+                <a href="#!" class="btn btn-outline-white ms-2">Import</a>
+                <a href="#!" class="btn btn-outline-white ms-2">Export</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive table-card">
+                <table
+                  id="example"
+                  class="table text-nowrap table-centered mt-0"
+                  style="width: 100%"
+                >
+                  <thead class="table-light">
+                    <tr>
+                      <th>Book</th>
+                      <th>Number</th>
+                      <th>Category</th>
+                      <th>Subject</th>
+                      <th>Quantity</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for book in books %}
+                    <tr>
+                      <td class="ps-0">
+                        <a href="" class="text-inherit">{{book.title}}</a>
+                      </td>
+
+                      <td>{{book.booknumber}}</td>
+                      <td>{{book.category}}</td>
+                      <td>{{book.subject}}</td>
+                      <td>{{book.quantity}}</td>
+                      
+
+                      <td>
+                        <a
+                          href="#!"
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="eyeOne"
+                        >
+                          <i data-feather="eye" class="icon-xs"></i>
+                          <div id="eyeOne" class="d-none">
+                            <span>View</span>
+                          </div>
+                        </a>
+                        <a
+                          href="#!"
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="editOne"
+                        >
+                          <i data-feather="edit" class="icon-xs"></i>
+                          <div id="editOne" class="d-none">
+                            <span>Edit</span>
+                          </div>
+                        </a>
+                        <a
+                          href=""
+                          class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                          data-template="trashOne"
+                        >
+                          <i data-feather="trash-2" class="icon-xs"></i>
+                          <div id="trashOne" class="d-none">
+                            <span>Delete</span>
+                          </div>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add or Edit Leave Modal -->
+    <div
+      class="modal fade"
+      id="add-edit-class-modal"
+      tabindex="-1"
+      aria-labelledby="leaveModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="add-edit-class-modal-title">
+              + Add Book
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+            {% if form_errors %}
+            <ul>
+              {% for field, errors in form_errors.items %}
+              <li>{{ field }}: {{ errors|join:", " }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          <div class="modal-body">
+            <form name="add-class-form" id="add-class-form" method="post">
+              {% csrf_token %}
+
+              <div class="row">
+                <!-- form group -->
+                <div class="mb-4 col-md-6 col-12">
+                  <label class="form-label">Title</label>
+                  {{form.title}}
+                </div>
+                <!-- form group -->
+                <div class="mb-4 col-md-6 col-12">
+                  <label class="form-label">Book Number</label>
+                  {{form.booknumber}}
+                </div>
+              </div>
+              <div class="row">
+                <!-- form group -->
+                <div class="mb-4 col-md-6 col-12">
+                  <label class="form-label">Category</label>
+                  {{form.category}}
+                </div>
+
+                <div class="mb-4 col-md-6 col-12">
+                  <label class="form-label">Subject</label>
+                  {{form.subject}}
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="mb-4 col-md-6 col-12">
+                  <label class="form-label">Publisher</label>
+                  {{form.publisher}}
+                </div>
+
+                <div class="mb-4 col-md-6 col-12">
+                  <label class="form-label">Author</label>
+                  {{form.author}}
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Quantity</label>
+                {{form.quantity}}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Description</label>
+                {{form.description}}
+              </div>
+
+              <div class="">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="add-new-class-btn"
+                >
+                  Add Book
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <input type="hidden" id="class-id" name="leaveid" value="" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="view-class-modal"
+      tabindex="-1"
+      aria-labelledby="leaveModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="view-class-modal-title">Leave Title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="class-details">
+              <div class="mt-0">
+                <h5 class="mb-0 text-800">
+                  <i class="bi bi-info-square me-2"></i>
+                  Description
+                </h5>
+                <p class="mb-1 mt-2" id="view-class-description"></p>
+              </div>
+
+              <div class="mt-4">
+                <h5 class="mb-0 text-800">
+                  <i class="bi bi-calendar3 me-2"></i>
+                  Date and Time
+                </h5>
+                <p class="mb-1 mt-2" id="view-class-dates"></p>
+              </div>
+              <div class="my-4">
+                <h5 class="mb-0 text-800">
+                  <i class="bi bi-geo-alt me-2"></i>
+                  Location
+                </h5>
+                <p class="mb-1 mt-2" id="view-class-location"></p>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                id="btn-delete-class"
+              >
+                <i class="bi bi-x"></i>
+                Delete
+              </button>
+              <button
+                type="submit"
+                class="btn btn-outline-secondary"
+                id="btn-edit-class"
+              >
+                <i class="bi bi-pencil"></i>
+                Edit Leave
+              </button>
+              <input
+                type="hidden"
+                id="selected-class-id"
+                name="selectedleaveid"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Content Wrapper END -->
+{% endblock %}

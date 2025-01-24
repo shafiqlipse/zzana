@@ -1,133 +1,266 @@
 {% extends "dashboard/dashboard.html" %}
-
-<!--static-->
-{% block title %} | {{teacher.fname}} {{teacher.lname}}{% endblock %}
-<!--static-->
+<!---->
 {% load static %}
-<!--khfufufu-->
+<!---->
+{% block title %} | Dashboard{% endblock %}
+<!---->
 {% block content %}
-<div class="main-content">
-  <div class="teacher flex">
-    <div class="img-ath">
-      {% if teacher.photo %}
-      <img src="{{teacher.photo.url}}" alt="" />
-      {% else %}
-      <img src="{% static 'images/profile.png'%}" alt="" />{% endif %}
-    </div>
-    <div class="line-ath">
-      <h1>{{teacher.fname}} {{teacher.lname}}</h1>
+<div id="app-content">
+  <div class="app-content-area">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <!-- col -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+          <!-- Bg -->
+          <div
+            class="pt-20 rounded-top"
+            style="
+              background: url(https://wallpapers.com/images/high/high-resolution-blue-background-1920-x-1080-9ievy5j853ofx6e1.webp)
+                no-repeat;
+              background-size: cover;
+            "
+          ></div>
 
-      <span>{{teacher.gender}}</span> |
-      <span>{{teacher.marital}}</span>
+          <div class="card rounded-bottom smooth-shadow-sm">
+            <div
+              class="d-flex align-items-center justify-content-between pt-4 pb-6 px-4"
+            >
+              <div class="d-flex align-items-center">
+                <!-- avatar -->
+                <div
+                  class="avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10"
+                >
+                  <img
+                    src="{{teacher.photo.url}}"
+                    class="avatar-xxl rounded-circle border border-2"
+                    alt="Image"
+                  />
+                </div>
+                <!-- text -->
+                <div class="lh-1">
+                  <h2 class="mb-0">
+                    {{teacher.fname}} {{teacher.lname}}
+                    <a href="#!" class="text-decoration-none"> </a>
+                  </h2>
+                  <p class="mb-0 d-block">
+                    {{teacher.email}}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <a
+                  href="profile-edit.html"
+                  class="btn btn-outline-primary d-none d-md-block"
+                  >Edit Profile</a
+                >
+              </div>
+            </div>
+            <!-- navs -->
 
-      <hr />
-      <div class="small-details grid3">
-        <span>
-          ID Number:
-          <h3>{{teacher.nin}}</h3></span
-        >
-        <span
-          >Department:
-          <h3>{{teacher.department}}</h3></span
-        >
-        <span
-          >Role:
-          <h3>{{teacher.role}}</h3></span
-        >
-        <span
-          >Date of Birth:
-          <h3>{{teacher.date_of_brth}}</h3></span
-        >
-        <span
-          >Class:
-          <h3>{{teacher.email}}</h3></span
-        >
-        <span
-          >Contact:
-          <h3>{{teacher.contact}}</h3></span
-        >
-        <span
-          >Registration date:
-          <h3>{{teacher.created}}</h3></span
-        >
-      </div>
-    </div>
-  </div>
-  <div class="downgrade grid2">
-    <div class="teachersa">
-      <hr />
-      <h3>Next of Kin Infor</h3>
+            <!-- navs -->
+            <ul class="nav nav-lt-tab px-4" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <button
+                  class="nav-link active"
+                  id="home-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#overview"
+                  type="button"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+                >
+                  Overview
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#projects"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Projects
+                </button>
+              </li>
 
-      <div class="teacher-details card">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td>Names</td>
-              <td>{{teacher.n_fname}} {{teacher.n_lname}}</td>
-            </tr>
-            <tr>
-              <td>NIN</td>
-              <td>{{teacher.n_nin}}</td>
-            </tr>
-            <tr>
-              <td>Contact</td>
-              <td>{{teacher.tel}}</td>
-            </tr>
-            <tr>
-              <td>Address</td>
-              <td>{{teacher.n_address}}</td>
-            </tr>
-            <tr>
-              <td>District</td>
-              <td>{{teacher.n_district}}</td>
-            </tr>
-            <tr>
-              <td>Country</td>
-              <td>{{teacher.n_country}}</td>
-            </tr>
-            <tr>
-              <td>Relationship</td>
-
-              <td>{{teacher.relationship}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="teachersa">
-      <hr />
-      <h3>Documents</h3>
-
-      <div class="teacher-details card">
-        {% if teacher.nid %}
-        <li>
-          <i class="fa fa-file"></i>
-          <a href="{{ teacher.nid.url }}" target="_blank">National ID</a>
-        </li>
-        {% endif %} {% if teacher.cv %}
-        <li>
-          <i class="fa fa-file"></i>
-          <a href="{{ teacher.cv.url }}" target="_blank">Resume</a>
-        </li>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-
-  <div class="related_teachers">
-    <h1>Related teachers</h1>
-
-    <div class="teachers grid5">
-      {% for teacher in relatedteachers %}
-      <a class="teacher" href="{% url 'teacher' teacher.id%}">
-        <img src="{{teacher.photo.url}}" alt="" />
-        <div class="atth">
-          <p>{{teacher.fname}} {{teacher.lname}}</p>
-          <p>{{teacher.teacher_id}}</p>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#exams"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Exams
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#disciplinary"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Disciplinary
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#clubs"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Clubs
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Profile
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-      </a>
-      {% endfor %}
+      </div>
+      <div class="py-6 tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="overview"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+          <div>
+            <!-- row -->
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-12 mb-5">
+                <!-- card -->
+                <div class="card h-100">
+                  <!-- card body -->
+                  <div class="card-header">
+                    <h4 class="mb-0">About</h4>
+                  </div>
+                  <div class="card-body">
+                    <!-- row -->
+                    <div class="row">
+                      <div class="col-12 mb-5">
+                        <!-- text -->
+                        <h5 class="text-uppercase">Index Number</h5>
+                        <p class="mb-0">{{teacher.index_number}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Class/Stream</h5>
+                        <p class="mb-0">
+                          {{teacher.classroom}}/{{teacher.stream}}
+                        </p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">LIN</h5>
+                        <p class="mb-0">{{teacher.lin}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Residence</h5>
+                        <p class="mb-0">{{teacher.residence}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Gender</h5>
+                        <p class="mb-0">{{teacher.gender}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Nationality</h5>
+                        <p class="mb-0">{{teacher.nationality}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Date of Birth</h5>
+                        <p class="mb-0">{{teacher.dob}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-12 mb-5">
+                <!-- card -->
+                <div class="card h-100">
+                  <!-- card body -->
+                  <div class="card-header">
+                    <h4 class="mb-0">Guardian Info</h4>
+                  </div>
+                  <div class="card-body">
+                    <!-- row -->
+                    <div class="row">
+                      <div class="col-12 mb-5">
+                        <!-- text -->
+                        <h5 class="text-uppercase">Names</h5>
+                        <p class="mb-0">
+                          {{teacher.guardian_fname}} {{teacher.guardian_fname}}
+                        </p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">National ID</h5>
+                        <p class="mb-0">{{teacher.nin}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Phone</h5>
+                        <p class="mb-0">{{teacher.phone}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Other Phone</h5>
+                        <p class="mb-0">{{teacher.other_phone}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Email</h5>
+                        <p class="mb-0">{{teacher.email}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Relationship</h5>
+                        <p class="mb-0">Dashui@gmail.com</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Location</h5>
+                        <p class="mb-0">{{teacher.address}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">District</h5>
+                        <p class="mb-0">{{teacher.district}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Country</h5>
+                        <p class="mb-0">{{teacher.country}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endblock %}
+        </div>
+      </div>
     </div>
   </div>
 </div>
-{% endblock %}

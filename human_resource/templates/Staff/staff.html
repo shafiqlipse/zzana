@@ -1,133 +1,266 @@
 {% extends "dashboard/dashboard.html" %}
-
-<!--static-->
-{% block title %} | {{employee.fname}} {{employee.lname}}{% endblock %}
-<!--static-->
+<!---->
 {% load static %}
-<!--khfufufu-->
+<!---->
+{% block title %} | Dashboard{% endblock %}
+<!---->
 {% block content %}
-<div class="main-content">
-  <div class="employee flex">
-    <div class="img-ath">
-      {% if employee.photo %}
-      <img src="{{employee.photo.url}}" alt="" />
-      {% else %}
-      <img src="{% static 'images/profile.png'%}" alt="" />{% endif %}
-    </div>
-    <div class="line-ath">
-      <h1>{{employee.fname}} {{employee.lname}}</h1>
+<div id="app-content">
+  <div class="app-content-area">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <!-- col -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+          <!-- Bg -->
+          <div
+            class="pt-20 rounded-top"
+            style="
+              background: url(https://wallpapers.com/images/high/high-resolution-blue-background-1920-x-1080-9ievy5j853ofx6e1.webp)
+                no-repeat;
+              background-size: cover;
+            "
+          ></div>
 
-      <span>{{employee.gender}}</span> |
-      <span>{{employee.marital}}</span>
+          <div class="card rounded-bottom smooth-shadow-sm">
+            <div
+              class="d-flex align-items-center justify-content-between pt-4 pb-6 px-4"
+            >
+              <div class="d-flex align-items-center">
+                <!-- avatar -->
+                <div
+                  class="avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10"
+                >
+                  <img
+                    src="{{employee.photo.url}}"
+                    class="avatar-xxl rounded-circle border border-2"
+                    alt="Image"
+                  />
+                </div>
+                <!-- text -->
+                <div class="lh-1">
+                  <h2 class="mb-0">
+                    {{employee.fname}} {{employee.lname}}
+                    <a href="#!" class="text-decoration-none"> </a>
+                  </h2>
+                  <p class="mb-0 d-block">
+                    @{{employee.fname}}{{employee.lname}}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <a
+                  href="profile-edit.html"
+                  class="btn btn-outline-primary d-none d-md-block"
+                  >Edit Profile</a
+                >
+              </div>
+            </div>
+            <!-- navs -->
 
-      <hr />
-      <div class="small-details grid3">
-        <span>
-          ID Number:
-          <h3>{{employee.nin}}</h3></span
-        >
-        <span
-          >Department:
-          <h3>{{employee.department}}</h3></span
-        >
-        <span
-          >Role:
-          <h3>{{employee.role}}</h3></span
-        >
-        <span
-          >Date of Birth:
-          <h3>{{employee.date_of_brth}}</h3></span
-        >
-        <span
-          >Class:
-          <h3>{{employee.email}}</h3></span
-        >
-        <span
-          >Contact:
-          <h3>{{employee.contact}}</h3></span
-        >
-        <span
-          >Registration date:
-          <h3>{{employee.created}}</h3></span
-        >
-      </div>
-    </div>
-  </div>
-  <div class="downgrade grid2">
-    <div class="employeesa">
-      <hr />
-      <h3>Next of Kin Infor</h3>
+            <!-- navs -->
+            <ul class="nav nav-lt-tab px-4" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <button
+                  class="nav-link active"
+                  id="home-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#overview"
+                  type="button"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+                >
+                  Overview
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#projects"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Projects
+                </button>
+              </li>
 
-      <div class="employee-details card">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td>Names</td>
-              <td>{{employee.n_fname}} {{employee.n_lname}}</td>
-            </tr>
-            <tr>
-              <td>NIN</td>
-              <td>{{employee.n_nin}}</td>
-            </tr>
-            <tr>
-              <td>Contact</td>
-              <td>{{employee.tel}}</td>
-            </tr>
-            <tr>
-              <td>Address</td>
-              <td>{{employee.n_address}}</td>
-            </tr>
-            <tr>
-              <td>District</td>
-              <td>{{employee.n_district}}</td>
-            </tr>
-            <tr>
-              <td>Country</td>
-              <td>{{employee.n_country}}</td>
-            </tr>
-            <tr>
-              <td>Relationship</td>
-
-              <td>{{employee.relationship}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="employeesa">
-      <hr />
-      <h3>Documents</h3>
-
-      <div class="employee-details card">
-        {% if employee.nid %}
-        <li>
-          <i class="fa fa-file"></i>
-          <a href="{{ employee.nid.url }}" target="_blank">National ID</a>
-        </li>
-        {% endif %} {% if employee.cv %}
-        <li>
-          <i class="fa fa-file"></i>
-          <a href="{{ employee.cv.url }}" target="_blank">Resume</a>
-        </li>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-
-  <div class="related_employees">
-    <h1>Related employees</h1>
-
-    <div class="employees grid5">
-      {% for employee in relatedemployees %}
-      <a class="employee" href="{% url 'employee' employee.id%}">
-        <img src="{{employee.photo.url}}" alt="" />
-        <div class="atth">
-          <p>{{employee.fname}} {{employee.lname}}</p>
-          <p>{{employee.employee_id}}</p>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#exams"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Exams
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#disciplinary"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Disciplinary
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#clubs"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Clubs
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile"
+                  aria-selected="false"
+                >
+                  Profile
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-      </a>
-      {% endfor %}
+      </div>
+      <div class="py-6 tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="overview"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+          <div>
+            <!-- row -->
+            <div class="row">
+              <div class="col-xl-6 col-lg-12 col-md-12 col-12 mb-5">
+                <!-- card -->
+                <div class="card h-100">
+                  <!-- card body -->
+                  <div class="card-header">
+                    <h4 class="mb-0">About</h4>
+                  </div>
+                  <div class="card-body">
+                    <!-- row -->
+                    <div class="row">
+                      <div class="col-12 mb-5">
+                        <!-- text -->
+                        <h5 class="text-uppercase">Index Number</h5>
+                        <p class="mb-0">{{employee.index_number}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Class/Stream</h5>
+                        <p class="mb-0">
+                          {{employee.classroom}}/{{employee.stream}}
+                        </p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">LIN</h5>
+                        <p class="mb-0">{{employee.lin}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Residence</h5>
+                        <p class="mb-0">{{employee.residence}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Gender</h5>
+                        <p class="mb-0">{{employee.gender}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Nationality</h5>
+                        <p class="mb-0">{{employee.nationality}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Date of Birth</h5>
+                        <p class="mb-0">{{employee.dob}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-12 col-md-12 col-12 mb-5">
+                <!-- card -->
+                <div class="card h-100">
+                  <!-- card body -->
+                  <div class="card-header">
+                    <h4 class="mb-0">Guardian Info</h4>
+                  </div>
+                  <div class="card-body">
+                    <!-- row -->
+                    <div class="row">
+                      <div class="col-12 mb-5">
+                        <!-- text -->
+                        <h5 class="text-uppercase">Names</h5>
+                        <p class="mb-0">
+                          {{employee.guardian_fname}} {{employee.guardian_fname}}
+                        </p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">National ID</h5>
+                        <p class="mb-0">{{employee.nin}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Phone</h5>
+                        <p class="mb-0">{{employee.phone}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Other Phone</h5>
+                        <p class="mb-0">{{employee.other_phone}}</p>
+                      </div>
+                      <div class="col-6 mb-5">
+                        <h5 class="text-uppercase">Email</h5>
+                        <p class="mb-0">{{employee.email}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Relationship</h5>
+                        <p class="mb-0">Dashui@gmail.com</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Location</h5>
+                        <p class="mb-0">{{employee.address}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">District</h5>
+                        <p class="mb-0">{{employee.district}}</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="text-uppercase">Country</h5>
+                        <p class="mb-0">{{employee.country}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endblock %}
+        </div>
+      </div>
     </div>
   </div>
 </div>
-{% endblock %}

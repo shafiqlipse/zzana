@@ -8,10 +8,12 @@ class SubjectForm(forms.ModelForm):
         model = Subject
         fields = [
             "name",
+            "code",
 
         ]
         widgets = {
             "name": forms.TextInput(attrs={"class": "form-control"}),
+            "code": forms.TextInput(attrs={"class": "form-control"}),
 
         }
 

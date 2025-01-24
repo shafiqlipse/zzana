@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../fonts/Gilroy-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gilroy";
+}
+.btn-erp {
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(161, 21, 21, 1) 50%,
+    rgba(99, 5, 9, 1) 100%
+  );
+  color: #ffffff;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 10px 0;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}

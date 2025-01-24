@@ -25,10 +25,20 @@ urlpatterns = [
     path("addemployees/", employees, name="add_employee"),
     path("delete_staff/<int:id>", staff_delete, name="delete_staff"),
     path("employee/<int:id>", staff_details, name="staff"),
+    path('create-user/<int:id>/', create_user_from_employee, name='create_user_from_employee'),
 
     # path("departments/", Departments, name="departments"),
     path("teachers/", all_teachers, name="teachers"),
     path("addteachers/", teachers, name="add_teacher"),
     path("delete_teacher/<int:id>", teacher_delete, name="delete_teacher"),
     path("teacher/<int:id>", teacher_details, name="teacher"),
+    
+    # path('list/', apply_leave, name='leave_list'),
+    path('leavelist/', apply_leave, name='leave_list'),
+    path('leave_review/<int:id>/', review_leave, name='review_leave'),
+    path('leave_review/list/', leave_review_list, name='leave_review_list'),
+    
+    
+    # path('leave_review/list/', leave_review_list, name='leave_review_list'),
+    path('requests/', request_list_view, name='request_list'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

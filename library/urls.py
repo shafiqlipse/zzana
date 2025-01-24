@@ -15,6 +15,11 @@ urlpatterns = [
     path("genres/", Genres, name="genres"),
     path("delete_genre/<int:id>", genre_delete, name="delete_genre"),
     path("genre/<int:id>", genre_details, name="genre"),
+    
+    # path("categorys/", Categorys, name="categorys"),
+    path("books/", books, name="books"),
+    path("delete_book/<int:id>", genre_delete, name="delete_book"),
+    path("book/<int:id>", book_details, name="book"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,45 +14,62 @@ from django.http import JsonResponse
 from .filters import *
 # Create your views here.
 
-
+from .utils import send_sms
 def enrollment_add(request):
     if request.method == "POST":
         form = EnrollmentsForm(request.POST, request.FILES)
 
         if form.is_valid():
             try:
+                # Save the form without committing to allow further modifications
                 new_enrollment = form.save(commit=False)
 
+                # Handle cropped photo data
                 cropped_data = request.POST.get("photo_cropped")
                 if cropped_data:
                     try:
                         format, imgstr = cropped_data.split(";base64,")
                         ext = format.split("/")[-1]
-                        data = ContentFile(
-                            base64.b64decode(imgstr), name=f"photo.{ext}"
-                        )
-                        new_enrollment.photo = data  # Assign cropped image
-                    except (ValueError, TypeError):
-                        messages.error(request, "Invalid image data.")
+                        data = ContentFile(base64.b64decode(imgstr), name=f"photo.{ext}")
+                        new_enrollment.photo = data
+                    except (ValueError, TypeError) as e:
+                        messages.error(request, "Invalid image data. Please try again.")
                         return render(request, "enrollments/enrollment_new.html", {"form": form})
 
+                # Save the enrollment to the database
                 new_enrollment.save()
-                messages.success(
-                    request,
-                    "Registered successfully! ",
+
+                # Send SMS notification
+                phone_number = new_enrollment.phone  # Ensure this is properly formatted
+                message = (
+                    f"Congratulations, {new_enrollment.fname}! Your application is successful. "
+                    f"Please confirm by paying an admission fee of 50,000 through money number ...... in the names of .....!"
                 )
+                sms_response = send_sms(phone_number, message)
+
+                if sms_response:
+                    print("SMS sent successfully:", sms_response)
+                else:
+                    print("Failed to send SMS")
+                    messages.warning(request, "Enrollment successful, but SMS failed to send.")
+
+                # Notify the user and redirect
+                messages.success(request, "Registered successfully!")
                 return redirect("addenrollment")
 
             except IntegrityError:
-                messages.error(
-                    request, "There was an error saving the enrollment.")
-                return render(request, "enrollments/enrollment_new.html", {"form": form})
+                messages.error(request, "An error occurred while saving the enrollment. Please try again.")
+            except Exception as e:
+                messages.error(request, f"An unexpected error occurred: {e}")
+
+        else:
+            messages.error(request, "Please correct the errors below.")
 
     else:
         form = EnrollmentsForm()
 
-    context = {"form": form}
-    return render(request, "enrollments/enrollment_new.html", context)
+    # Render the form template
+    return render(request, "enrollments/enrollment_new.html", {"form": form})
 
 
 @login_required(login_url="login")

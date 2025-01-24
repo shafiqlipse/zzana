@@ -27,6 +27,9 @@ class Designation(models.Model):
 class Role(models.Model):
     name = models.CharField(max_length=144)
     created = models.DateField(auto_now_add=True)
+    level = models.IntegerField(null=True,blank=True)
+    department=models.ForeignKey(Department, verbose_name="department",
+                             on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -173,3 +176,59 @@ class Teacher(models.Model):
 
     def __str__(self):
         return f"{self.fname} {self.lname}"
+
+
+
+class Leave(models.Model):
+    STATUS_CHOICES = [
+        ('PENDING', 'Pending'),
+        ('APPROVED', 'Approved'),
+        ('REJECTED', 'Rejected'),
+    ]
+    
+    LEAVE_TYPE_CHOICES = [
+        ('SICK', 'Sick Leave'),
+        ('CASUAL', 'Casual Leave'),
+        ('ANNUAL', 'Annual Leave'),
+        ('EDUCATION', 'Educational Leave'),
+        ('ANNUAL', 'Annual Leave'),
+        ('OTHER', 'Other'),
+    ]
+    
+    employee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='leaves')
+    leave_type = models.CharField(max_length=20, choices=LEAVE_TYPE_CHOICES)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    reason = models.TextField()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
+    applied_on = models.DateTimeField(auto_now_add=True)
+    reviewed_on = models.DateTimeField(null=True, blank=True)
+    reviewed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewed_leaves')
+
+    def __str__(self):
+        return f"{self.employee.username} - {self.leave_type} ({self.status})"
+
+    @property
+    def duration(self):
+        return (self.end_date - self.start_date).days + 1
+
+
+
+class Request(models.Model):
+    PRIORITY_CHOICES = [
+        ('Low', 'Low'),
+        ('Medium', 'Medium'),
+        ('High', 'High'),
+        ('Urgent', 'Urgent'),
+    ]
+    
+    requester = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='requests')
+    description = models.TextField()
+    status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], default='Pending')
+    current_approver = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='approving_requests')
+    next_approver = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='next_approving_requests')
+    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Low')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Request by {self.requester.user.username} - {self.status} - {self.priority}"

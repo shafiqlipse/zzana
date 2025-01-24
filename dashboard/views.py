@@ -8,4 +8,4 @@ from django.contrib.auth.decorators import login_required
 def Dashboard(request):
     employees = Employee.objects.all().count
     context = {"employees":employees}
-    return render(request, 'dashboard/overview.html', context)
+    return render(request, 'dashboard/analytics.html', context)
