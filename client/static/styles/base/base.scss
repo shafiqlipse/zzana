@@ -1,52 +1,6 @@
-@import "../variables";
-
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
-  font-family: "poppins", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-  font-size: 1rem;
-}
-
-.front-wraper {
-  // background-color: #000;
-  .top-menu {
-    padding: 10px 5%;
-    @media (max-width: 768px) {
-      padding: 10px;
-      .left {
-        display: none;
-      }
-      .right {
-        padding: 0;
-        margin: 0;
-        text-align: center;
-        li {
-          a {
-            margin: 0;
-          }
-        }
-      }
-    }
-    .left,
-    .right {
-      .contacts,
-      .toplex {
-        li {
-          a {
-            margin: 0 10px;
-            color: $primary;
-            text-decoration: none;
-            &:hover {
-              color: $gold;
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 .flex {

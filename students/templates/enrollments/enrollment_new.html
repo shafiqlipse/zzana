@@ -27,12 +27,7 @@
   <h1>Admission</h1>
   <p>All fields labeled with <span>*</span> must be filled.</p>
   <hr />
-  <form
-    action=""
-    method="POST"
-    class="form-ctrl card"
-    enctype="multipart/form-data"
-  >
+  <form action="" method="POST" class="form-ctrl" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="fields">
       <div class="left">
@@ -164,7 +159,7 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-common">Send Application</button>
+    <button type="submit" class="btn btn-primary">Send Application</button>
   </form>
 </div>
 {% endblock %}

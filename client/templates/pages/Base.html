@@ -47,10 +47,15 @@
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.css"
+    />
     <!-- Swiper JS -->
 
     <link rel="stylesheet" href="{% static 'assets/css/main.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/enroll.css'%}" />
+    <link rel="stylesheet" href="{% static 'styles/base/base.css'%}" />
   </head>
 
   <body>
@@ -134,7 +139,7 @@
             <div class="col-xxl-7 col-xl-8 col-lg-6 col-6">
               <div class="h7_header-left">
                 <div class="h7_header-logo">
-                  <a href="index.html"
+                  <a href="/"
                     ><img
                       src="{% static 'assets/images/menu-logo.png'%}"
                       alt=""
@@ -205,14 +210,6 @@
             </div>
             <div class="col-xxl-5 col-xl-4 col-lg-6 col-6">
               <div class="h7_header-right">
-                <div class="h7_header-search d-none d-xxl-block">
-                  <form action="#">
-                    <input type="text" placeholder="Search Item" />
-                    <button type="submit" class="header-search-btn">
-                      <i class="fa fa-magnifying-glass"></i>
-                    </button>
-                  </form>
-                </div>
                 <div class="h7_header-btn2 d-none d-sm-block">
                   <a
                     href="{% url 'login'%}"
@@ -388,8 +385,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-appear/0.4.1/jquery.appear.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/meanmenu/2.0.8/jquery.meanmenu.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <script src="{% static 'assets/js/main.js'%}"></script>
+    <script src="{% static 'js/opper.js'%}"></script>
     <!-- Replace this with your hosted script if it's custom -->
 
     <!-- Replace this with your hosted script if it's custom -->
