@@ -1825,7 +1825,7 @@ textarea:focus::placeholder {
   --clr-body-heading: #1e1e1e;
   --clr-body-text: rgba(30, 30, 30, 0.6);
   --clr-color-lightBlue: #bbe8eb;
-  --clr-color-darkPink: #283B68;
+  --clr-color-darkPink: #283b68;
   --clr-color-lightPink: #f7ecf9;
   --clr-color-lightPurple: #f3f4fd;
   --clr-theme-primary: #283b68;
@@ -1833,7 +1833,7 @@ textarea:focus::placeholder {
   --clr-theme-primary-3: #f5530d;
   --clr-theme-primary-4: #f6ba2a;
   --clr-theme-primary-5: #f3eb1e;
-  --clr-theme-primary-6: #283B68;
+  --clr-theme-primary-6: #283b68;
   --clr-theme-primary-8: #283b68;
   --clr-theme-primary-9: #283b68;
   --clr-theme-primary-10: #283b68;
@@ -2717,12 +2717,13 @@ textarea:focus::placeholder {
 }
 .h7_main-menu ul li:is(.menu-has-child) > a::after {
   display: inline-block;
-  font-family: "Font Awesome 6 Pro";
-  content: "\f107";
+  font-family: "Font Awesome 6 Free"; /* Free Font Awesome */
+  content: "\f107"; /* Unicode for caret-down icon in free version */
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 900; /* Font Awesome Free uses '900' for solid icons */
   margin-left: 5px;
 }
+
 .h7_main-menu ul li a {
   font-size: 16px;
   color: #2c2c2c;
@@ -2856,7 +2857,7 @@ textarea:focus::placeholder {
   color: hsla(0, 0%, 100%, 0.8);
 }
 .h8_header-top-text span {
-  color: #283B68;
+  color: #283b68;
 }
 .h8_header-top-social ul {
   display: flex;
@@ -3014,11 +3015,12 @@ textarea:focus::placeholder {
 .h8_main-menu ul li:is(.menu-has-child) > a::after {
   display: inline-block;
   font-family: "Font Awesome 6 Pro";
-  content: "+";
+  content: "\f107"; /* Unicode for Font Awesome caret */
   font-size: 12px;
   font-weight: 500;
   margin-left: 5px;
 }
+
 .h8_main-menu ul li a {
   font-size: 16px;
   color: #2c2c2c;
@@ -4864,7 +4866,7 @@ textarea:focus::placeholder {
 }
 
 .h8_banner-content-subtitle {
-  color: #283B68;
+  color: #283b68;
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
@@ -4930,8 +4932,8 @@ textarea:focus::placeholder {
 .h8_banner-play span {
   height: 40px;
   width: 40px;
-  border: 1px solid #283B68;
-  color: #283B68;
+  border: 1px solid #283b68;
+  color: #283b68;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -5459,7 +5461,7 @@ textarea:focus::placeholder {
 ******************************************************* 
 *************************************************************** */
 .section-area .section-subtitle {
-  color: #283B68;
+  color: #283b68;
   font-size: 15px;
   font-weight: 500;
   display: inline-block;
@@ -5488,7 +5490,7 @@ textarea:focus::placeholder {
   top: 0;
   width: 2px;
   height: 100%;
-  background-color: #283B68;
+  background-color: #283b68;
   content: "";
 }
 .section-area .section-title {
@@ -5973,7 +5975,7 @@ textarea:focus::placeholder {
 }
 
 .section-area-8 .section-subtitle {
-  color: #283B68;
+  color: #283b68;
   font-size: 16px;
   display: block;
   margin-bottom: 8px;
@@ -8243,7 +8245,7 @@ textarea:focus::placeholder {
   height: 80px;
   border-radius: 10px;
   opacity: 0.7;
-  background: linear-gradient(143deg, #283B68 0%, rgba(241, 77, 93, 0) 100%);
+  background: linear-gradient(143deg, #283b68 0%, rgba(241, 77, 93, 0) 100%);
   z-index: -2;
 }
 .h8_course-wrap .inner-info-2::before {
@@ -10613,7 +10615,7 @@ textarea:focus::placeholder {
   position: absolute;
   right: 0;
   top: 0;
-  background: #283B68;
+  background: #283b68;
   padding: 30px 55px;
   border-radius: 10px;
 }
@@ -11081,7 +11083,7 @@ textarea:focus::placeholder {
   font-size: 14px;
   margin-right: 7px;
   font-weight: 300;
-  color: #283B68;
+  color: #283b68;
 }
 
 .event-content {
@@ -20265,7 +20267,7 @@ textarea:focus::placeholder {
   left: 0;
   width: 300px;
   height: 200px;
-  background-color: #283B68;
+  background-color: #283b68;
   border-color: transparent;
   border-radius: 50%;
   transform: translate(-40px, -80px) scale(0.1);
