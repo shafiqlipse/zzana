@@ -6,203 +6,144 @@
 {% load static %}
 <!--khfufufu-->
 {% block content %}
-<div class="main-content">
-  <div class="applicant flex">
-    <div class="img-ath">
-      {% if applicant.photo %}
-      <img src="{{applicant.photo.url}}" alt="" />
-      {% else %}
-      <img src="{% static 'images/profile.png'%}" alt="" />{% endif %}
-    </div>
-    <div class="line-ath">
-      <h1>{{applicant.fname}} {{applicant.lname}}</h1>
-
-      <span>{{applicant.gender}}</span>
-
-      <hr />
-      <div class="small-details grid3">
-        <span>
-          Index Number:
-          <h3>{{applicant.index_number}}</h3></span
-        >
-        <span
-          >Nationality:
-          <h3>{{applicant.nationality}}</h3></span
-        >
-        <span
-          >Date of Birth:
-          <h3>{{applicant.dob}}</h3></span
-        >
-        <span
-          >Class:
-          <h3>{{applicant.classroom}}</h3></span
-        >
-        <span
-          >Previous School:
-          <h3>{{applicant.prev_sch}}</h3></span
-        >
-        <span
-          >Registration date:
-          <h3>{{applicant.created}}</h3></span
-        >
-        <span
-          >Status:
-          <h3>{{applicant.status}}</h3></span
-        >
-        {% if user.is_staff %}
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#exampleModal"
-        >
-          Activate Student
-        </button>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  <div class="downgrade grid2">
-    <div class="applicantsa">
-      <h3>Guardian Infor</h3>
-      <hr />
-      <div class="applicant-details card">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td>Names</td>
-              <td>{{applicant.guardian_fname}} {{applicant.guardian_lname}}</td>
-            </tr>
-            <tr>
-              <td>NIN</td>
-              <td>{{applicant.nin}}</td>
-            </tr>
-            <tr>
-              <td>Contact</td>
-              <td>{{applicant.phone}}</td>
-            </tr>
-            <tr>
-              <td>Address</td>
-              <td>{{applicant.address}}</td>
-            </tr>
-            <tr>
-              <td>District</td>
-              <td>{{applicant.district}}</td>
-            </tr>
-            <tr>
-              <td>Country</td>
-              <td>{{applicant.country}}</td>
-            </tr>
-            <tr>
-              <td>Relationship</td>
-
-              <td>{{applicant.relationship}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="applicanta">
-      <h3>Documents</h3>
-      <hr />
-      <div class="applicant-details card">
-        <li>
-          {% if applicant.ple_certificate %}
-          <i class="fa fa-file"></i>
-          <a href="{{ applicant.ple_certificate.url }}" target="_blank"
-            >PLE Certificate</a
-          >
-          {% endif %}
-        </li>
-        <li>
-          {% if applicant.uce_certificate %}
-          <i class="fa fa-file"></i>
-          <a href="{{ applicant.uce_certificate.url }}" target="_blank"
-            >UCE Certificate</a
-          >
-          {% endif %}
-        </li>
-        <li>
-          {% if applicant.student_pass %}
-          <i class="fa fa-file"></i>
-          <a href="{{ applicant.student_pass.url }}" target="_blank"
-            >Student Pass</a
-          >
-          {% endif %}
-        </li>
-        <li>
-          {% if applicant.refugee_card %}
-          <i class="fa fa-file"></i>
-          <a href="{{ applicant.refugee_card.url }}" target="_blank"
-            >Refugee Card</a
-          >
-          {% endif %}
-        </li>
-        <li>
-          {% if applicant.uneb_eq_results %}
-          <i class="fa fa-file"></i>
-          <a href="{{ applicant.uneb_eq_results.url }}" target="_blank"
-            >UNEB Equated Results</a
-          >
-          {% endif %}
-        </li>
-        {% if applicant.qr_code %}
-        <img src="{{applicant.qr_code.url}}" alt="" />{% endif %}
-      </div>
-    </div>
-  </div>
-
-  <div class="related_applicants">
-    <h1>Related applicants</h1>
-    <p>Athletes from the same school</p>
-    <div class="applicants grid5">
-      {% for applicant in relatedapplicants %}
-      <a class="applicant" href="{% url 'applicant' applicant.id%}">
-        <img src="{{applicant.photo.url}}" alt="" />
-        <div class="atth">
-          <p>{{applicant.fname}} {{applicant.lname}}</p>
-          <p>{{applicant.applicant_id}}</p>
+<div id="app-content">
+  <!-- Container fluid -->
+  <div class="app-content-area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+          <!-- Page header -->
+          <div class="mb-5">
+            <h3 class="mb-0">Applicant Details</h3>
+          </div>
         </div>
-      </a>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Championship</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %} {{ dform.as_p }}
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
-            Cancel
-          </button>
+      </div>
+      <div>
+        <!-- row -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <!-- card body -->
+              <div class="card-body p-5">
+                <div class="row">
+                  <div class="col-xl-6">
+                    <div class="product" id="product">
+                      <div>
+                        <div>
+                          <!-- img -->
+                          <img
+                            src="{{applicant.photo.url}}"
+                            alt=""
+                            class="img-fluid"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-12">
+                    <div class="my-5 mx-xl-10">
+                      <div>
+                        <!-- heading -->
+                        <h1>{{applicant.fname}} {{applicant.lname}}</h1>
+                        <div>
+                          <!-- review -->
+                          <span
+                            ><span class="me-2 text-dark"
+                              >{{applicant.classroom}}<i
+                                class="mdi mdi-star text-success"
+                              ></i> </span
+                            >{{applicant.index_number}}/{{applicant.year}}</span
+                          >
+                          - {{applicant.prev_sch}}
+                        </div>
+                      </div>
+                      <hr class="my-3" />
+                      <div class="py-3">
+                        <table class="table table-striped">
+                          <tbody>
+                            <tr>
+                              <th class="w-40">LIN</th>
+                              <td>{{applicant.lin}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Date of Birth</th>
+                              <td>{{applicant.dob}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Gender</th>
+                              <td>{{applicant.gender}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Campus</th>
+                              <td>{{applicant.campus}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Nationality</th>
+                              <td>{{applicant.nationality}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Residence</th>
+                              <td>{{applicant.residence}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <!-- heading -->
+                        <h1>Guardian Info</h1>
+                        >
+                      </div>
+                      <hr class="my-3" />
+                      <div class="py-3">
+                        <table class="table table-striped">
+                          <tbody>
+                            <tr>
+                              <th class="w-40">Names</th>
+                              <td>
+                                {{applicant.guardian_fname}}
+                                {{applicant.guardian_lname}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Email</th>
+                              <td>{{applicant.email}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Phones</th>
+                              <td>{{applicant.phone}} | {{applicant.other_phone}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">National ID</th>
+                              <td>{{applicant.nin}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Address</th>
+                              <td>{{applicant.address}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">District</th>
+                              <td>{{applicant.district}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Country</th>
+                              <td>{{applicant.country}}</td>
+                            </tr>
+                            <tr>
+                              <th class="w-40">Relationship</th>
+                              <td>{{applicant.relationship}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endblock %}
         </div>
       </div>
     </div>
   </div>
 </div>
-{% endblock %}

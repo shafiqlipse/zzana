@@ -9,7 +9,7 @@ from .views import *
 urlpatterns = [
     # venues
     path("zzana/", zzana, name="zzana"),
-    path("ndejje/", ndejje, name="ndejje"),
+    path("contact/", contact, name="contact"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

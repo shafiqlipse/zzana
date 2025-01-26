@@ -8,5 +8,5 @@ def Home(request):
 def zzana(request):
     return render(request,'pages/zzana-campus.html')
 
-def ndejje(request):
-    return render(request,'pages/ndejje-campus.html')
+def contact(request):
+    return render(request,'pages/contact.html')
