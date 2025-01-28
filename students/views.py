@@ -152,10 +152,10 @@ def enrollment_delete(request, id):
 
 
 @login_required(login_url="login")
-def export_csv(request):
+def export_ecsv(request):
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = 'attachment; filename="data.csv"'
+    response["Content-Disposition"] = 'attachment; filename="applicants.csv"'
 
     # Create a CSV writer object using the HttpResponse as the file.
     writer = csv.writer(response)
@@ -164,14 +164,15 @@ def export_csv(request):
     writer.writerow(
         [
             "id",
-            "first_name",
-            "last_name",
-            "place",
-            "contract",
-            "district",
-            "venue",
-            "discipline",
-            "course",
+            "fname",
+            "lname",
+            "classroom",
+            "gender",
+            "index_number",
+            "dob",
+            "residence",
+            "nationality",
+            "phone",
         ]
     )  # Replace with your model's fields
 
@@ -180,14 +181,15 @@ def export_csv(request):
         writer.writerow(
             [
                 obj.id,
-                obj.first_name,
-                obj.last_name,
-                obj.place,
-                obj.contact,
-                obj.district,
-                obj.venue,
-                obj.discipline,
-                obj.course,
+                obj.fname,
+                obj.lname,
+                obj.classroom,
+                obj.gender,
+                obj.index_number,
+                obj.dob,
+                obj.residence,
+                obj.nationality,
+                obj.phone,
             ]
         )  # Replace with your model's fields
 

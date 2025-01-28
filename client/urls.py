@@ -10,6 +10,7 @@ urlpatterns = [
     # venues
     path("zzana/", zzana, name="zzana"),
     path("contact/", contact, name="contact"),
+    path("about/", about, name="about"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,7 +11,7 @@ urlpatterns = [
     # venues
     path("enrollstudent/", enrollment_add, name="addenrollment"),
     # path("teccred/", teccreditation, name="teccred"),
-    path('export-csv/', export_csv, name='export_csv'),
+    path('export-ecsv/', export_ecsv, name='export_ecsv'),
     path("enrollments/", enrollments, name="enrollments"),
     
     path("enrollment/<int:id>", enrollment_details, name="enrollment"),
