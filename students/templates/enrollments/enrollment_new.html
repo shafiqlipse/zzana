@@ -91,7 +91,19 @@
 
               <div class="field"><label>Gender</label>{{form.gender}}</div>
 
-              <div class="field"><label>Class</label>{{form.classroom}}</div>
+              <div class="field" id="level_container">
+                <label>Level</label>{{form.level}}
+              </div>
+              <div class="field" id="olevel_container">
+                <label>Class</label>{{form.classroom}}
+              </div>
+              <div class="field" id="alevel_container">
+                <label>Class</label>{{form.aclassroom}}
+              </div>
+              <div class="field" id="combination_container">
+                <label>Combination</label>{{form.combination}}
+              </div>
+
               <div class="field">
                 <label>Residence</label>{{form.residence}}
               </div>
@@ -162,4 +174,37 @@
     <button type="submit" class="btn btn-primary">Send Application</button>
   </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function () {
+    function toggleFields() {
+      const level = $("#id_level").val();
+
+      if (!level) return; // Prevent issues if no selection is made
+
+      if (level === "O Level") {
+        $("#olevel_container").show();
+        $("#id_classroom").prop("required", true);
+
+        $(
+          "#alevel_container, #combination_container, #uce_certificate_container"
+        ).hide();
+        $("#id_aclassroom").removeAttr("required");
+      } else if (level === "A Level") {
+        $("#olevel_container").hide();
+        $("#id_classroom").prop("required", false);
+
+        $(
+          "#alevel_container, #combination_container, #uce_certificate_container"
+        ).show();
+      }
+    }
+
+    if ($("#id_level").length) {
+      $("#id_level").change(toggleFields);
+      toggleFields(); // Run on page load
+    }
+  });
+</script>
+
 {% endblock %}

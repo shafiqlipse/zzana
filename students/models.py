@@ -7,6 +7,23 @@ from accounts.models import *
 
 
 class StudentEnrollment(models.Model):
+    
+    COMBINATION_CHOICES = [
+        ("Agriculture", "Agriculture"),
+        ("Biology", "Biology"),
+        ("Chemistry", "Chemistry"),
+        ("Maths", "Maths"),
+        ("English", "English"),
+        ("Physics", "Physics"),
+        ("Luganda", "Luganda"),
+        ("Entrepreneurship", "Entrepreneurship"),
+        ("Economics", "Economics"),
+        ("History", "History"),
+        ("Geography", "Geography"),
+        ("Christian Religious Education", "Christian Religious Education"),
+        ("Art and Design", "Art and Design"),
+        ("Technical drawing", "Technical drawing"),
+    ]
     fname = models.CharField(max_length=255)
     mname = models.CharField(max_length=255, blank=True, null=True)
     lin = models.CharField(max_length=255, blank=True, null=True)
@@ -22,16 +39,34 @@ class StudentEnrollment(models.Model):
     prev_sch = models.CharField(max_length=255)
     index_number = models.CharField(max_length=255)
     year = models.IntegerField()
+    level = models.CharField(
+        max_length=10,
+        choices=(
+            ("O Level", "O Level"),
+            ("A Level", "A Level"),
+           
+        ), null=True, blank=True
+    )
     classroom = models.CharField(
         max_length=10,
         choices=(
             ("S1", "S1"),
             ("S2", "S2"),
             ("S3", "S3"),
-            ("S4", "S4"),
+           
+        ), null=True, blank=True
+    )
+    aclassroom = models.CharField(
+        max_length=10,
+        choices=(
+      
             ("S5", "S5"),
             ("S6", "S6"),
-        ),
+        ), null=True, blank=True
+    )
+    combination = models.CharField(
+        max_length=45,
+        choices=COMBINATION_CHOICES, null=True, blank=True
     )
     residence = models.CharField(
         max_length=10,

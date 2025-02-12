@@ -4,6 +4,7 @@ from .models import *
 
 
 class EnrollmentsForm(forms.ModelForm):
+
     class Meta:
         model = StudentEnrollment
         fields = [
@@ -22,6 +23,9 @@ class EnrollmentsForm(forms.ModelForm):
             "index_number",
             "year",
             "classroom",
+            "aclassroom",
+            "level",
+            "combination",
             "campus",
             "residence",
             "guardian_fname",
@@ -55,6 +59,10 @@ class EnrollmentsForm(forms.ModelForm):
             "campus": forms.Select(attrs={"class": "form-control"}),
             "country": forms.TextInput(attrs={"class": "form-control"}),
             "classroom": forms.Select(attrs={"class": "form-control"}),
+            "aclassroom": forms.Select(attrs={"class": "form-control"}),
+            "level": forms.Select(attrs={"class": "form-control"}),
+            "combination": forms.SelectMultiple(attrs={"class": "js-example-basic-multiple form-control", "multiple": "multiple"}),
+
             "residence": forms.Select(attrs={"class": "form-control"}),
             "gender": forms.Select(attrs={"class": "form-control"}),
             # "residence_type": forms.Select(attrs={"class": "form-control"}),
