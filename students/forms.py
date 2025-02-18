@@ -4,7 +4,11 @@ from .models import *
 
 
 class EnrollmentsForm(forms.ModelForm):
-
+    combination = forms.ModelMultipleChoiceField(
+        queryset=Subject.objects.all(),
+        widget=forms.SelectMultiple(attrs={"class": "js-example-basic-multiple form-control", "multiple": "multiple"}), # Use Select2 Multi-Select
+        required=False
+    )
     class Meta:
         model = StudentEnrollment
         fields = [
@@ -61,12 +65,12 @@ class EnrollmentsForm(forms.ModelForm):
             "classroom": forms.Select(attrs={"class": "form-control"}),
             "aclassroom": forms.Select(attrs={"class": "form-control"}),
             "level": forms.Select(attrs={"class": "form-control"}),
-            "combination": forms.SelectMultiple(attrs={"class": "js-example-basic-multiple form-control", "multiple": "multiple"}),
-
             "residence": forms.Select(attrs={"class": "form-control"}),
             "gender": forms.Select(attrs={"class": "form-control"}),
             # "residence_type": forms.Select(attrs={"class": "form-control"}),
             "dob": forms.DateInput(attrs={"type": "date", "class": "form-control"}),
+            
+  
         }
 
 

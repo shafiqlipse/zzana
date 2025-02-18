@@ -15,16 +15,18 @@ from .filters import *
 # Create your views here.
 
 from .utils import send_sms
+import logging
+
+logger = logging.getLogger(__name__)
 def enrollment_add(request):
     if request.method == "POST":
         form = EnrollmentsForm(request.POST, request.FILES)
-
         if form.is_valid():
             try:
-                # Save the form without committing to allow further modifications
+                # Save form instance without committing to modify further
                 new_enrollment = form.save(commit=False)
 
-                # Handle cropped photo data
+                # Handle cropped photo
                 cropped_data = request.POST.get("photo_cropped")
                 if cropped_data:
                     try:
@@ -33,42 +35,50 @@ def enrollment_add(request):
                         data = ContentFile(base64.b64decode(imgstr), name=f"photo.{ext}")
                         new_enrollment.photo = data
                     except (ValueError, TypeError) as e:
+                        logger.error(f"Image processing error: {e}")
                         messages.error(request, "Invalid image data. Please try again.")
                         return render(request, "enrollments/enrollment_new.html", {"form": form})
 
-                # Save the enrollment to the database
+                # Save the new_enrollment instance to the database
                 new_enrollment.save()
 
+                # Now that new_enrollment has an ID, set the many-to-many field
+                new_enrollment.combination.set(form.cleaned_data["combination"])
+
                 # Send SMS notification
-                phone_number = new_enrollment.phone  # Ensure this is properly formatted
+                phone_number = new_enrollment.phone
                 message = (
                     f"Congratulations, {new_enrollment.fname}! Your application is successful. "
                     f"Please confirm by paying an admission fee of 50,000 through money number ...... in the names of .....!"
                 )
-                sms_response = send_sms(phone_number, message)
+                try:
+                    sms_response = send_sms(phone_number, message)
+                    if not sms_response:
+                        raise Exception("SMS gateway did not respond")
+                except Exception as e:
+                    logger.error(f"SMS sending failed: {e}")
+                    messages.warning(request, "Enrollment successful, but SMS notification failed.")
 
-                if sms_response:
-                    print("SMS sent successfully:", sms_response)
-                else:
-                    print("Failed to send SMS")
-                    messages.warning(request, "Enrollment successful, but SMS failed to send.")
-
-                # Notify the user and redirect
                 messages.success(request, "Registered successfully!")
                 return redirect("addenrollment")
 
-            except IntegrityError:
-                messages.error(request, "An error occurred while saving the enrollment. Please try again.")
+            except IntegrityError as e:
+                logger.error(f"Database IntegrityError: {e}")
+                messages.error(request, "A record with similar details already exists. Please verify your data.")
+            except ValueError as e:
+                logger.error(f"Value error: {e}")
+                messages.error(request, f"Invalid data provided: {e}")
             except Exception as e:
-                messages.error(request, f"An unexpected error occurred: {e}")
-
+                logger.error(f"Unexpected error: {e}")
+                messages.error(request, f"An unexpected error occurred. Contact support. Error: {str(e)}")
         else:
+            # Log form errors for debugging
+            for field, errors in form.errors.items():
+                logger.warning(f"Validation error in field '{field}': {', '.join(errors)}")
             messages.error(request, "Please correct the errors below.")
-
     else:
         form = EnrollmentsForm()
 
-    # Render the form template
     return render(request, "enrollments/enrollment_new.html", {"form": form})
 
 

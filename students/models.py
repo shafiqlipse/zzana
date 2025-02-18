@@ -8,22 +8,6 @@ from accounts.models import *
 
 class StudentEnrollment(models.Model):
     
-    COMBINATION_CHOICES = [
-        ("Agriculture", "Agriculture"),
-        ("Biology", "Biology"),
-        ("Chemistry", "Chemistry"),
-        ("Maths", "Maths"),
-        ("English", "English"),
-        ("Physics", "Physics"),
-        ("Luganda", "Luganda"),
-        ("Entrepreneurship", "Entrepreneurship"),
-        ("Economics", "Economics"),
-        ("History", "History"),
-        ("Geography", "Geography"),
-        ("Christian Religious Education", "Christian Religious Education"),
-        ("Art and Design", "Art and Design"),
-        ("Technical drawing", "Technical drawing"),
-    ]
     fname = models.CharField(max_length=255)
     mname = models.CharField(max_length=255, blank=True, null=True)
     lin = models.CharField(max_length=255, blank=True, null=True)
@@ -64,9 +48,8 @@ class StudentEnrollment(models.Model):
             ("S6", "S6"),
         ), null=True, blank=True
     )
-    combination = models.CharField(
-        max_length=45,
-        choices=COMBINATION_CHOICES, null=True, blank=True
+    combination = models.ManyToManyField(
+        Subject, null=True, blank=True
     )
     residence = models.CharField(
         max_length=10,
